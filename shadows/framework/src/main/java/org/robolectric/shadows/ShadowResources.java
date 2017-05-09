@@ -292,11 +292,11 @@ public class ShadowResources {
     private String message;
 
     @Implementation
-    public void __constructor__() {
+    protected void __constructor__() {
     }
 
     @Implementation
-    public void __constructor__(String name) {
+    protected void __constructor__(String name) {
       this.message = name;
     }
 

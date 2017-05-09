@@ -14,7 +14,7 @@ public class ShadowOverlayItem {
   private String snippet;
 
   @Implementation
-  public void __constructor__(GeoPoint geoPoint, String title, String snippet) {
+  protected void __constructor__(GeoPoint geoPoint, String title, String snippet) {
     this.geoPoint = geoPoint;
     this.title = title;
     this.snippet = snippet;

@@ -159,8 +159,7 @@ public class ShadowPackageInstaller {
     private ShadowPackageInstaller shadowPackageInstaller;
 
     @Implementation
-    public void __constructor__() {
-
+    protected void __constructor__() {
     }
 
     @Implementation

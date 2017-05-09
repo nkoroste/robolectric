@@ -48,7 +48,7 @@ public class ShadowMediaRecorder {
   private MediaRecorder.OnInfoListener infoListener;
 
   @Implementation
-  public void __constructor__() {
+  protected void __constructor__() {
     state = STATE_INITIAL;
   }
 

@@ -54,7 +54,7 @@ public class ShadowCanvas {
   }
 
   @Implementation
-  public void __constructor__(Bitmap bitmap) {
+  protected void __constructor__(Bitmap bitmap) {
     this.targetBitmap = bitmap;
   }
 

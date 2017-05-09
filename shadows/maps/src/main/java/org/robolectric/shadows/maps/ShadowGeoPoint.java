@@ -11,7 +11,7 @@ public class ShadowGeoPoint {
   private int lng;
 
   @Implementation
-  public void __constructor__(int lat, int lng) {
+  protected void __constructor__(int lat, int lng) {
     this.lat = lat;
     this.lng = lng;
   }

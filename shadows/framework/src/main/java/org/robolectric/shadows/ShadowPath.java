@@ -22,7 +22,7 @@ public class ShadowPath {
   private String quadDescription = "";
 
   @Implementation
-  public void __constructor__(Path path) {
+  protected void __constructor__(Path path) {
     points = new ArrayList<>(Shadows.shadowOf(path).getPoints());
     wasMovedTo = Shadows.shadowOf(path).wasMovedTo;
     quadDescription = Shadows.shadowOf(path).quadDescription;

@@ -13,14 +13,14 @@ public class ShadowContentProviderResult {
   @RealObject ContentProviderResult realResult;
 
   @Implementation
-  public void __constructor__(Uri uri) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+  protected void __constructor__(Uri uri) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
     Field field = realResult.getClass().getField("uri");
     field.setAccessible(true);
     field.set(realResult, uri);
   }
 
   @Implementation
-  public void __constructor__(int count) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+  protected void __constructor__(int count) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
     Field field = realResult.getClass().getField("count");
     field.setAccessible(true);
     field.set(realResult, count);

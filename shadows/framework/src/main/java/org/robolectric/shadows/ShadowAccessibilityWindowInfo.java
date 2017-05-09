@@ -51,7 +51,7 @@ public class ShadowAccessibilityWindowInfo {
   private AccessibilityWindowInfo mRealAccessibilityWindowInfo;
 
   @Implementation
-  public void __constructor__() {}
+  protected void __constructor__() {}
 
   @Implementation
   protected static AccessibilityWindowInfo obtain() {

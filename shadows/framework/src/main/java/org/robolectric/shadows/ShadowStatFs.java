@@ -25,7 +25,7 @@ public class ShadowStatFs {
   private Stats stat;
 
   @Implementation
-  public void __constructor__(String path) {
+  protected void __constructor__(String path) {
     restat(path);
   }
 

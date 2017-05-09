@@ -15,7 +15,7 @@ public class ShadowMapActivity extends ShadowActivity {
   private ConnectivityBroadcastReceiver connectivityBroadcastReceiver = new ConnectivityBroadcastReceiver();
 
   @Override @Implementation
-  public void __constructor__() {
+  protected void __constructor__() {
   }
 
   @Implementation

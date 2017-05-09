@@ -239,8 +239,8 @@ public class ShadowWranglerIntegrationTest {
 
   @Implements(Foo.class)
   public static class WithEquals {
-    @SuppressWarnings("UnusedDeclaration")
-    public void __constructor__(String s) {
+    @Implementation
+    protected void __constructor__(String s) {
     }
 
     @Override
@@ -258,8 +258,8 @@ public class ShadowWranglerIntegrationTest {
 
   @Implements(Foo.class)
   public static class WithToString {
-    @SuppressWarnings("UnusedDeclaration")
-    public void __constructor__(String s) {
+    @Implementation
+    protected void __constructor__(String s) {
     }
 
     @Override
@@ -285,7 +285,8 @@ public class ShadowWranglerIntegrationTest {
     private Foo realFoo;
     public Foo realFooInParentConstructor;
 
-    public void __constructor__(String name) {
+    @Implementation
+    protected void __constructor__(String name) {
       realFooInParentConstructor = realFoo;
     }
   }

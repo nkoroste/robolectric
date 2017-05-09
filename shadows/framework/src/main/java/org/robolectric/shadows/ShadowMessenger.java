@@ -12,7 +12,7 @@ public class ShadowMessenger {
   private Handler handler;
 
   @Implementation
-  public void __constructor__(Handler handler) {
+  protected void __constructor__(Handler handler) {
     this.handler = handler;
   }
 

@@ -38,7 +38,7 @@ public class ShadowMatrix {
   private SimpleMatrix mMatrix = SimpleMatrix.IDENTITY;
 
   @Implementation
-  public void __constructor__(Matrix src) {
+  protected void __constructor__(Matrix src) {
     set(src);
   }
 

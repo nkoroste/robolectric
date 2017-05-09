@@ -118,7 +118,8 @@ public class ShadowingTest {
       this.shadowDefaultConstructorCalled = true;
     }
 
-    public void __constructor__() {
+    @Implementation
+    protected void __constructor__() {
       shadowDefaultConstructorImplementorCalled = true;
     }
   }
@@ -187,8 +188,8 @@ public class ShadowingTest {
 
   @Implements(ClassWithSomeConstructors.class)
   public static class ShadowOfClassWithSomeConstructors {
-    @SuppressWarnings("UnusedDeclaration")
-    public void __constructor__(String s) {
+    @Implementation
+    protected void __constructor__(String s) {
     }
   }
 

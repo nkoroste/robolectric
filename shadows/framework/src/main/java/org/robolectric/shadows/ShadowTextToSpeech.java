@@ -15,7 +15,7 @@ public class ShadowTextToSpeech {
   private int queueMode = -1;
 
   @Implementation
-  public void __constructor__(Context context, TextToSpeech.OnInitListener listener) {
+  protected void __constructor__(Context context, TextToSpeech.OnInitListener listener) {
     this.context = context;
     this.listener = listener;
   }

@@ -81,7 +81,7 @@ import static org.robolectric.shadows.util.DataSource.toDataSource;
 @Implements(MediaPlayer.class)
 public class ShadowMediaPlayer extends ShadowPlayerBase {
   @Implementation
-  public static void __staticInitializer__() {
+  protected static void __staticInitializer__() {
     // don't bind the JNI library
   }
 
@@ -524,7 +524,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
   }
 
   @Implementation
-  public void __constructor__() {
+  protected void __constructor__() {
     // Contract of audioSessionId is that if it is 0 (which represents
     // the master mix) then that's an error. By default it generates
     // an ID that is unique system-wide. We could simulate guaranteed

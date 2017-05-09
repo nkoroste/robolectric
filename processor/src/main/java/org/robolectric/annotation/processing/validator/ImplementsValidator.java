@@ -55,6 +55,19 @@ public class ImplementsValidator extends Validator {
 
   @Override
   public Void visitType(TypeElement elem, Element parent) {
+    for (Element memberElement : ElementFilter.methodsIn(elem.getEnclosedElements())) {
+      if (memberElement.getSimpleName().toString().equals("__constructor__")) {
+        Implementation implementation = memberElement.getAnnotation(Implementation.class);
+        if (implementation == null) {
+          messager.printMessage(Kind.ERROR, "Should be annotated @Implementation", memberElement);
+        }
+
+        if (!memberElement.getModifiers().contains(Modifier.PROTECTED)) {
+          messager.printMessage(Kind.ERROR, "@Implementation methods should be protected", memberElement);
+        }
+      }
+    }
+
     captureJavadoc(elem);
 
     validateShadowMethods(elem);

@@ -15,7 +15,7 @@ public class ShadowAsyncTaskLoader<D> {
   private SimpleFuture<D> future;
 
   @Implementation
-  public void __constructor__(Context context) {
+  protected void __constructor__(Context context) {
     BackgroundWorker worker = new BackgroundWorker();
     future = new SimpleFuture<D>(worker) {
       @Override protected void done() {

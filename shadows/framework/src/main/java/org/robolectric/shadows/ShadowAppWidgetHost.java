@@ -19,7 +19,7 @@ public class ShadowAppWidgetHost {
   private int appWidgetIdToAllocate;
 
   @Implementation
-  public void __constructor__(Context context, int hostId) {
+  protected void __constructor__(Context context, int hostId) {
     this.context = context;
     this.hostId = hostId;
   }
