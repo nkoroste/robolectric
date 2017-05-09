@@ -39,42 +39,42 @@ public class ShadowPendingIntent {
   private String creatorPackage;
 
   @Implementation
-  public static PendingIntent getActivity(Context context, int requestCode, Intent intent, int flags) {
+  protected static PendingIntent getActivity(Context context, int requestCode, Intent intent, int flags) {
     return create(context, new Intent[] {intent}, true, false, false, requestCode, flags);
   }
 
   @Implementation
-  public static PendingIntent getActivity(Context context, int requestCode, Intent intent, int flags, Bundle options) {
+  protected static PendingIntent getActivity(Context context, int requestCode, Intent intent, int flags, Bundle options) {
     return create(context, new Intent[] {intent}, true, false, false, requestCode, flags);
   }
 
   @Implementation
-  public static PendingIntent getActivities(Context context, int requestCode, Intent[] intents, int flags) {
+  protected static PendingIntent getActivities(Context context, int requestCode, Intent[] intents, int flags) {
     return create(context, intents, true, false, false, requestCode, flags);
   }
 
   @Implementation
-  public static PendingIntent getActivities(Context context, int requestCode, Intent[] intents, int flags, Bundle options) {
+  protected static PendingIntent getActivities(Context context, int requestCode, Intent[] intents, int flags, Bundle options) {
     return create(context, intents, true, false, false, requestCode, flags);
   }
 
   @Implementation
-  public static PendingIntent getBroadcast(Context context, int requestCode, Intent intent, int flags) {
+  protected static PendingIntent getBroadcast(Context context, int requestCode, Intent intent, int flags) {
     return create(context, new Intent[] {intent}, false, true, false, requestCode, flags);
   }
 
   @Implementation
-  public static PendingIntent getService(Context context, int requestCode, Intent intent, int flags) {
+  protected static PendingIntent getService(Context context, int requestCode, Intent intent, int flags) {
     return create(context, new Intent[] {intent}, false, false, true, requestCode, flags);
   }
 
   @Implementation
-  public void send() throws CanceledException {
+  protected void send() throws CanceledException {
     send(savedContext, 0, null);
   }
 
   @Implementation
-  public void send(Context context, int code, Intent intent) throws CanceledException {
+  protected void send(Context context, int code, Intent intent) throws CanceledException {
     if (intent != null) {
       for (Intent savedIntent : savedIntents) {
         savedIntent.fillIn(intent, 0);
@@ -97,7 +97,7 @@ public class ShadowPendingIntent {
   }
 
   @Implementation
-  public IntentSender getIntentSender() {
+  protected IntentSender getIntentSender() {
     return new RoboIntentSender(realPendingIntent);
   }
 

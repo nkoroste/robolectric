@@ -165,41 +165,41 @@ public class ShadowView {
 
   @HiddenApi
   @Implementation
-  public void computeOpaqueFlags() {
+  protected void computeOpaqueFlags() {
   }
 
   @Implementation
-  public void setOnFocusChangeListener(View.OnFocusChangeListener l) {
+  protected void setOnFocusChangeListener(View.OnFocusChangeListener l) {
     onFocusChangeListener = l;
     directly().setOnFocusChangeListener(l);
   }
 
   @Implementation
-  public void setOnClickListener(View.OnClickListener onClickListener) {
+  protected void setOnClickListener(View.OnClickListener onClickListener) {
     this.onClickListener = onClickListener;
     directly().setOnClickListener(onClickListener);
   }
 
   @Implementation
-  public void setOnLongClickListener(View.OnLongClickListener onLongClickListener) {
+  protected void setOnLongClickListener(View.OnLongClickListener onLongClickListener) {
     this.onLongClickListener = onLongClickListener;
     directly().setOnLongClickListener(onLongClickListener);
   }
 
   @Implementation
-  public void setOnSystemUiVisibilityChangeListener(View.OnSystemUiVisibilityChangeListener onSystemUiVisibilityChangeListener) {
+  protected void setOnSystemUiVisibilityChangeListener(View.OnSystemUiVisibilityChangeListener onSystemUiVisibilityChangeListener) {
     this.onSystemUiVisibilityChangeListener = onSystemUiVisibilityChangeListener;
     directly().setOnSystemUiVisibilityChangeListener(onSystemUiVisibilityChangeListener);
   }
 
   @Implementation
-  public void setOnCreateContextMenuListener(View.OnCreateContextMenuListener onCreateContextMenuListener) {
+  protected void setOnCreateContextMenuListener(View.OnCreateContextMenuListener onCreateContextMenuListener) {
     this.onCreateContextMenuListener = onCreateContextMenuListener;
     directly().setOnCreateContextMenuListener(onCreateContextMenuListener);
   }
 
   @Implementation
-  public void draw(android.graphics.Canvas canvas) {
+  protected void draw(android.graphics.Canvas canvas) {
     Drawable background = realView.getBackground();
     if (background != null) {
       shadowOf(canvas).appendDescription("background:");
@@ -208,7 +208,7 @@ public class ShadowView {
   }
 
   @Implementation
-  public void onLayout(boolean changed, int left, int top, int right, int bottom) {
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     onLayoutWasCalled = true;
     directlyOn(realView, View.class, "onLayout",
         ClassParameter.from(boolean.class, changed),
@@ -223,7 +223,7 @@ public class ShadowView {
   }
 
   @Implementation
-  public void requestLayout() {
+  protected void requestLayout() {
     didRequestLayout = true;
     directly().requestLayout();
   }
@@ -243,19 +243,19 @@ public class ShadowView {
   }
 
   @Implementation
-  public void invalidate() {
+  protected void invalidate() {
     wasInvalidated = true;
     directly().invalidate();
   }
 
   @Implementation
-  public boolean onTouchEvent(MotionEvent event) {
+  protected boolean onTouchEvent(MotionEvent event) {
     lastTouchEvent = event;
     return directly().onTouchEvent(event);
   }
 
   @Implementation
-  public void setOnTouchListener(View.OnTouchListener onTouchListener) {
+  protected void setOnTouchListener(View.OnTouchListener onTouchListener) {
     this.onTouchListener = onTouchListener;
     directly().setOnTouchListener(onTouchListener);
   }
@@ -391,22 +391,22 @@ public class ShadowView {
   }
 
   @Implementation
-  public Bitmap getDrawingCache() {
+  protected Bitmap getDrawingCache() {
     return ReflectionHelpers.callConstructor(Bitmap.class);
   }
 
   @Implementation
-  public void post(Runnable action) {
+  protected void post(Runnable action) {
     ShadowApplication.getInstance().getForegroundThreadScheduler().post(action);
   }
 
   @Implementation
-  public void postDelayed(Runnable action, long delayMills) {
+  protected void postDelayed(Runnable action, long delayMills) {
     ShadowApplication.getInstance().getForegroundThreadScheduler().postDelayed(action, delayMills);
   }
 
   @Implementation
-  public void postInvalidateDelayed(long delayMilliseconds) {
+  protected void postInvalidateDelayed(long delayMilliseconds) {
     ShadowApplication.getInstance().getForegroundThreadScheduler().postDelayed(new Runnable() {
       @Override
       public void run() {
@@ -416,12 +416,12 @@ public class ShadowView {
   }
 
   @Implementation
-  public void removeCallbacks(Runnable callback) {
+  protected void removeCallbacks(Runnable callback) {
     shadowOf(Looper.getMainLooper()).getScheduler().remove(callback);
   }
 
   @Implementation
-  public void scrollTo(int x, int y) {
+  protected void scrollTo(int x, int y) {
     try {
       Method method = View.class.getDeclaredMethod("onScrollChanged", new Class[]{int.class, int.class, int.class, int.class});
       method.setAccessible(true);
@@ -433,27 +433,27 @@ public class ShadowView {
   }
 
   @Implementation
-  public int getScrollX() {
+  protected int getScrollX() {
     return scrollToCoordinates != null ? scrollToCoordinates.x : 0;
   }
 
   @Implementation
-  public int getScrollY() {
+  protected int getScrollY() {
     return scrollToCoordinates != null ? scrollToCoordinates.y : 0;
   }
 
   @Implementation
-  public void setScrollX(int scrollX) {
+  protected void setScrollX(int scrollX) {
     scrollTo(scrollX, scrollToCoordinates.y);
   }
 
   @Implementation
-  public void setScrollY(int scrollY) {
+  protected void setScrollY(int scrollY) {
     scrollTo(scrollToCoordinates.x, scrollY);
   }
 
   @Implementation
-  public void setAnimation(final Animation animation) {
+  protected void setAnimation(final Animation animation) {
     directly().setAnimation(animation);
 
     if (animation != null) {
@@ -510,7 +510,7 @@ public class ShadowView {
   }
 
   @Implementation
-  public boolean isAttachedToWindow() {
+  protected boolean isAttachedToWindow() {
     return getAttachInfo() != null;
   }
 
@@ -527,7 +527,7 @@ public class ShadowView {
   }
 
   @Implementation(minSdk = JELLY_BEAN_MR2)
-  public Object getWindowId() {
+  protected Object getWindowId() {
     return WindowIdHelper.getWindowId(this);
   }
 
@@ -536,13 +536,13 @@ public class ShadowView {
   }
 
   @Implementation
-  public boolean performHapticFeedback(int hapticFeedbackType) {
+  protected boolean performHapticFeedback(int hapticFeedbackType) {
     hapticFeedbackPerformed = hapticFeedbackType;
     return true;
   }
 
   @Implementation
-  public boolean getGlobalVisibleRect(Rect rect, Point globalOffset) {
+  protected boolean getGlobalVisibleRect(Rect rect, Point globalOffset) {
     if (globalVisibleRect == null) {
       return directly().getGlobalVisibleRect(rect, globalOffset);
     }

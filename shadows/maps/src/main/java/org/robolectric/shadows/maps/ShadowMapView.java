@@ -106,22 +106,22 @@ public class ShadowMapView extends ShadowViewGroup {
   }
 
   @Implementation
-  public void setSatellite(boolean satelliteOn) {
+  protected void setSatellite(boolean satelliteOn) {
     this.satelliteOn = satelliteOn;
   }
 
   @Implementation
-  public boolean isSatellite() {
+  protected boolean isSatellite() {
     return satelliteOn;
   }
 
   @Implementation
-  public boolean canCoverCenter() {
+  protected boolean canCoverCenter() {
     return canCoverCenter;
   }
 
   @Implementation
-  public MapController getController() {
+  protected MapController getController() {
     if (mapController == null) {
       try {
         mapController = Shadow.newInstanceOf(MapController.class);
@@ -135,17 +135,17 @@ public class ShadowMapView extends ShadowViewGroup {
   }
 
   @Implementation
-  public ZoomButtonsController getZoomButtonsController() {
+  protected ZoomButtonsController getZoomButtonsController() {
     return zoomButtonsController;
   }
 
   @Implementation
-  public void setBuiltInZoomControls(boolean useBuiltInZoomMapControls) {
+  protected void setBuiltInZoomControls(boolean useBuiltInZoomMapControls) {
     this.useBuiltInZoomMapControls = useBuiltInZoomMapControls;
   }
 
   @Implementation
-  public com.google.android.maps.Projection getProjection() {
+  protected com.google.android.maps.Projection getProjection() {
     if (projection == null) {
       projection = new Projection() {
         @Override public Point toPixels(GeoPoint geoPoint, Point point) {
@@ -188,32 +188,32 @@ public class ShadowMapView extends ShadowViewGroup {
   }
 
   @Implementation
-  public List<Overlay> getOverlays() {
+  protected List<Overlay> getOverlays() {
     return overlays;
   }
 
   @Implementation
-  public GeoPoint getMapCenter() {
+  protected GeoPoint getMapCenter() {
     return mapCenter;
   }
 
   @Implementation
-  public int getLatitudeSpan() {
+  protected int getLatitudeSpan() {
     return latitudeSpan;
   }
 
   @Implementation
-  public int getLongitudeSpan() {
+  protected int getLongitudeSpan() {
     return longitudeSpan;
   }
 
   @Implementation
-  public int getZoomLevel() {
+  protected int getZoomLevel() {
     return zoomLevel;
   }
 
   @Implementation
-  public boolean dispatchTouchEvent(MotionEvent event) {
+  protected boolean dispatchTouchEvent(MotionEvent event) {
     for (Overlay overlay : overlays) {
       if (overlay.onTouchEvent(event, realMapView)) {
         return true;
@@ -257,12 +257,12 @@ public class ShadowMapView extends ShadowViewGroup {
   }
 
   @Implementation
-  public void preLoad() {
+  protected void preLoad() {
     preLoadWasCalled = true;
   }
 
   @Override @Implementation
-  public void onLayout(boolean b, int i, int i1, int i2, int i3) {
+  protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
   }
 
   private void moveByPixels(int x, int y) {

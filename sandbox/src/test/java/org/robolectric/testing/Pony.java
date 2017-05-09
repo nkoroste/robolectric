@@ -24,12 +24,12 @@ public class Pony {
   @Implements(Pony.class)
   public static class ShadowPony {
     @Implementation
-    public String ride(String where) {
+    protected String ride(String where) {
       return "Fake whinny! You're on my " + where + "!";
     }
 
     @Implementation
-    public static String prance(String where) {
+    protected static String prance(String where) {
       return "I'm shadily prancing to " + where + "!";
     }
   }

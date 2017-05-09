@@ -33,7 +33,7 @@ public class ShadowGeocoder {
   private boolean didResolution;
 
   @Implementation
-  public List<Address> getFromLocation(double latitude, double longitude, int maxResults) throws IOException {
+  protected List<Address> getFromLocation(double latitude, double longitude, int maxResults) throws IOException {
     wasCalled = true;
     this.lastLatitude = latitude;
     this.lastLongitude = longitude;
@@ -50,7 +50,7 @@ public class ShadowGeocoder {
   }
 
   @Implementation
-  public List<Address> getFromLocationName(String locationName, int maxResults) throws IOException {
+  protected List<Address> getFromLocationName(String locationName, int maxResults) throws IOException {
     didResolution = true;
     this.lastLocationName = locationName;
     if (shouldSimulateGeocodeException) {

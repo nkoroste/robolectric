@@ -37,12 +37,12 @@ public class ShadowPackageInstaller {
   }
 
   @Implementation
-  public List<PackageInstaller.SessionInfo> getAllSessions() {
+  protected List<PackageInstaller.SessionInfo> getAllSessions() {
     return ImmutableList.copyOf(sessionInfos.values());
   }
 
   @Implementation
-  public void registerSessionCallback(@NonNull PackageInstaller.SessionCallback callback, @NonNull Handler handler) {
+  protected void registerSessionCallback(@NonNull PackageInstaller.SessionCallback callback, @NonNull Handler handler) {
     CallbackInfo callbackInfo = new CallbackInfo();
     callbackInfo.callback = callback;
     callbackInfo.handler = handler;
@@ -56,7 +56,7 @@ public class ShadowPackageInstaller {
   }
 
   @Implementation
-  public int createSession(@NonNull PackageInstaller.SessionParams params) throws IOException {
+  protected int createSession(@NonNull PackageInstaller.SessionParams params) throws IOException {
     final PackageInstaller.SessionInfo sessionInfo = new PackageInstaller.SessionInfo();
     sessionInfo.sessionId = nextSessionId++;
     sessionInfo.active = true;
@@ -76,7 +76,7 @@ public class ShadowPackageInstaller {
   }
 
   @Implementation
-  public void abandonSession(int sessionId) {
+  protected void abandonSession(int sessionId) {
     sessionInfos.remove(sessionId);
     sessions.remove(sessionId);
 
@@ -164,7 +164,7 @@ public class ShadowPackageInstaller {
     }
 
     @Implementation
-    public @NonNull OutputStream openWrite(@NonNull String name, long offsetBytes, long lengthBytes) throws IOException {
+    protected @NonNull OutputStream openWrite(@NonNull String name, long offsetBytes, long lengthBytes) throws IOException {
       outputStream = new OutputStream() {
         @Override
         public void write(int aByte) throws IOException {
@@ -181,12 +181,12 @@ public class ShadowPackageInstaller {
     }
 
     @Implementation
-    public void fsync(@NonNull OutputStream out) throws IOException {
+    protected void fsync(@NonNull OutputStream out) throws IOException {
 
     }
 
     @Implementation
-    public void commit(@NonNull IntentSender statusReceiver) {
+    protected void commit(@NonNull IntentSender statusReceiver) {
       this.statusReceiver = statusReceiver;
       if (outputStreamOpen) {
         throw new SecurityException("OutputStream still open");
@@ -196,7 +196,7 @@ public class ShadowPackageInstaller {
     }
 
     @Implementation
-    public void close() {
+    protected void close() {
 
     }
 

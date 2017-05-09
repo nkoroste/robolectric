@@ -44,17 +44,17 @@ public class ShadowAccountManager {
    */
   @Deprecated
   @Implementation
-  public static AccountManager get(Context context) {
+  protected static AccountManager get(Context context) {
     return (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
   }
 
   @Implementation
-  public Account[] getAccounts() {
+  protected Account[] getAccounts() {
     return accounts.toArray(new Account[accounts.size()]);
   }
 
   @Implementation
-  public Account[] getAccountsByType(String type) {
+  protected Account[] getAccountsByType(String type) {
     if (type == null) {
       return getAccounts();
     }
@@ -70,7 +70,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public synchronized void setAuthToken(Account account, String tokenType, String authToken) {
+  protected synchronized void setAuthToken(Account account, String tokenType, String authToken) {
     if(accounts.contains(account)) {
       Map<String, String> tokenMap = authTokens.get(account);
       if(tokenMap == null) {
@@ -82,7 +82,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public String peekAuthToken(Account account, String tokenType) {
+  protected String peekAuthToken(Account account, String tokenType) {
     Map<String, String> tokenMap = authTokens.get(account);
     if(tokenMap != null) {
       return tokenMap.get(tokenType);
@@ -91,7 +91,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public boolean addAccountExplicitly(Account account, String password, Bundle userdata) {
+  protected boolean addAccountExplicitly(Account account, String password, Bundle userdata) {
     if (account == null) {
       throw new IllegalArgumentException("account is null");
     }
@@ -117,7 +117,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public String blockingGetAuthToken(Account account, String authTokenType,
+  protected String blockingGetAuthToken(Account account, String authTokenType,
                                      boolean notifyAuthFailure) {
     if (account == null) {
       throw new IllegalArgumentException("account is null");
@@ -138,7 +138,7 @@ public class ShadowAccountManager {
    * executed according to the {@link IdleState} of the corresponding {@link org.robolectric.util.Scheduler}.
    */
   @Implementation
-  public AccountManagerFuture<Boolean> removeAccount(final Account account,
+  protected AccountManagerFuture<Boolean> removeAccount(final Account account,
                                                       AccountManagerCallback<Boolean> callback,
                                                       Handler handler) {
     if (account == null) {
@@ -156,7 +156,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation(minSdk = LOLLIPOP_MR1)
-  public boolean removeAccountExplicitly(Account account) {
+  protected boolean removeAccountExplicitly(Account account) {
     passwords.remove(account);
     userData.remove(account);
     return accounts.remove(account);
@@ -172,12 +172,12 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public AuthenticatorDescription[] getAuthenticatorTypes() {
+  protected AuthenticatorDescription[] getAuthenticatorTypes() {
     return authenticators.values().toArray(new AuthenticatorDescription[authenticators.size()]);
   }
 
   @Implementation
-  public void addOnAccountsUpdatedListener(final OnAccountsUpdateListener listener,
+  protected void addOnAccountsUpdatedListener(final OnAccountsUpdateListener listener,
       Handler handler, boolean updateImmediately) {
 
     if (listeners.contains(listener)) {
@@ -192,12 +192,12 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public void removeOnAccountsUpdatedListener(OnAccountsUpdateListener listener) {
+  protected void removeOnAccountsUpdatedListener(OnAccountsUpdateListener listener) {
     listeners.remove(listener);
   }
 
   @Implementation
-  public String getUserData(Account account, String key) {
+  protected String getUserData(Account account, String key) {
     if (account == null) {
       throw new IllegalArgumentException("account is null");
     }
@@ -215,7 +215,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public void setUserData(Account account, String key, String value) {
+  protected void setUserData(Account account, String key, String value) {
     if (account == null) {
       throw new IllegalArgumentException("account is null");
     }
@@ -234,7 +234,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public void setPassword (Account account, String password) {
+  protected void setPassword (Account account, String password) {
     if (account == null) {
       throw new IllegalArgumentException("account is null");
     }
@@ -247,7 +247,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public String getPassword (Account account) {
+  protected String getPassword (Account account) {
     if (account == null) {
       throw new IllegalArgumentException("account is null");
     }
@@ -260,7 +260,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public void invalidateAuthToken(final String accountType, final String authToken) {
+  protected void invalidateAuthToken(final String accountType, final String authToken) {
     Account[] accountsByType = getAccountsByType(accountType);
     for (Account account : accountsByType) {
       Map<String, String> tokenMap = authTokens.get(account);
@@ -372,7 +372,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public AccountManagerFuture<Bundle> addAccount(final String accountType, String authTokenType, String[] requiredFeatures, Bundle addAccountOptions, Activity activity, AccountManagerCallback<Bundle> callback, Handler handler) {
+  protected AccountManagerFuture<Bundle> addAccount(final String accountType, String authTokenType, String[] requiredFeatures, Bundle addAccountOptions, Activity activity, AccountManagerCallback<Bundle> callback, Handler handler) {
     addAccountOptionsList.add(addAccountOptions);
     pendingAddFuture = new RoboAccountManagerFuture(callback, handler, accountType, activity);
     return pendingAddFuture;
@@ -411,12 +411,12 @@ public class ShadowAccountManager {
    * @see #setPreviousAccountName(Account, String)
    */
   @Implementation(minSdk = LOLLIPOP)
-  public String getPreviousName(Account account) {
+  protected String getPreviousName(Account account) {
     return previousNames.get(account);
   }
 
   @Implementation
-  public AccountManagerFuture<Bundle> getAuthToken(
+  protected AccountManagerFuture<Bundle> getAuthToken(
       final Account account, final String authTokenType, final Bundle options,
       final Activity activity, final AccountManagerCallback<Bundle> callback, Handler handler) {
 
@@ -435,7 +435,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public AccountManagerFuture<Boolean> hasFeatures(final Account account,
+  protected AccountManagerFuture<Boolean> hasFeatures(final Account account,
                                                    final String[] features,
                                                    AccountManagerCallback<Boolean> callback, Handler handler) {
     return start(new BaseRoboAccountManagerFuture<Boolean>(callback, handler) {
@@ -453,7 +453,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation
-  public AccountManagerFuture<Account[]> getAccountsByTypeAndFeatures(
+  protected AccountManagerFuture<Account[]> getAccountsByTypeAndFeatures(
       final String type, final String[] features,
       AccountManagerCallback<Account[]> callback, Handler handler) {
     return start(new BaseRoboAccountManagerFuture<Account[]>(callback, handler) {
@@ -479,7 +479,7 @@ public class ShadowAccountManager {
   }
 
   @Implementation(minSdk = JELLY_BEAN_MR2)
-  public Account[] getAccountsByTypeForPackage (String type, String packageName) {
+  protected Account[] getAccountsByTypeForPackage (String type, String packageName) {
     List<Account> result = new LinkedList<>();
 
     Account[] accountsByType = getAccountsByType(type);

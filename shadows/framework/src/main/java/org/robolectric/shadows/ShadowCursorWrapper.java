@@ -16,7 +16,7 @@ import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.os.Build.VERSION_CODES.M;
 
 @Implements(CursorWrapper.class)
-public class ShadowCursorWrapper implements Cursor {
+public class ShadowCursorWrapper {
   private Cursor wrappedCursor;
 
   @Implementation
@@ -25,212 +25,212 @@ public class ShadowCursorWrapper implements Cursor {
   }
 
   @Override @Implementation
-  public int getCount() {
+  protected int getCount() {
     return wrappedCursor.getCount();
   }
 
   @Override @Implementation
-  public int getPosition() {
+  protected int getPosition() {
     return wrappedCursor.getPosition();
   }
 
   @Override @Implementation
-  public boolean move(int i) {
+  protected boolean move(int i) {
     return wrappedCursor.move(i);
   }
 
   @Override @Implementation
-  public boolean moveToPosition(int i) {
+  protected boolean moveToPosition(int i) {
     return wrappedCursor.moveToPosition(i);
   }
 
   @Override @Implementation
-  public boolean moveToFirst() {
+  protected boolean moveToFirst() {
     return wrappedCursor.moveToFirst();
   }
 
   @Override @Implementation
-  public boolean moveToLast() {
+  protected boolean moveToLast() {
     return wrappedCursor.moveToLast();
   }
 
   @Override @Implementation
-  public boolean moveToNext() {
+  protected boolean moveToNext() {
     return wrappedCursor.moveToNext();
   }
 
   @Override @Implementation
-  public boolean moveToPrevious() {
+  protected boolean moveToPrevious() {
     return wrappedCursor.moveToPrevious();
   }
 
   @Override @Implementation
-  public boolean isFirst() {
+  protected boolean isFirst() {
     return wrappedCursor.isFirst();
   }
 
   @Override @Implementation
-  public boolean isLast() {
+  protected boolean isLast() {
     return wrappedCursor.isLast();
   }
 
   @Override @Implementation
-  public boolean isBeforeFirst() {
+  protected boolean isBeforeFirst() {
     return wrappedCursor.isBeforeFirst();
   }
 
   @Override @Implementation
-  public boolean isAfterLast() {
+  protected boolean isAfterLast() {
     return wrappedCursor.isAfterLast();
   }
 
   @Override @Implementation
-  public int getColumnIndex(String s) {
+  protected int getColumnIndex(String s) {
     return wrappedCursor.getColumnIndex(s);
   }
 
   @Override @Implementation
-  public int getColumnIndexOrThrow(String s) throws IllegalArgumentException {
+  protected int getColumnIndexOrThrow(String s) throws IllegalArgumentException {
     return wrappedCursor.getColumnIndexOrThrow(s);
   }
 
   @Override @Implementation
-  public String getColumnName(int i) {
+  protected String getColumnName(int i) {
     return wrappedCursor.getColumnName(i);
   }
 
   @Override @Implementation
-  public String[] getColumnNames() {
+  protected String[] getColumnNames() {
     return wrappedCursor.getColumnNames();
   }
 
   @Override @Implementation
-  public int getColumnCount() {
+  protected int getColumnCount() {
     return wrappedCursor.getColumnCount();
   }
 
   @Override @Implementation
-  public byte[] getBlob(int i) {
+  protected byte[] getBlob(int i) {
     return wrappedCursor.getBlob(i);
   }
 
   @Override @Implementation
-  public String getString(int i) {
+  protected String getString(int i) {
     return wrappedCursor.getString(i);
   }
 
   @Override @Implementation
-  public void copyStringToBuffer(int i, CharArrayBuffer charArrayBuffer) {
+  protected void copyStringToBuffer(int i, CharArrayBuffer charArrayBuffer) {
     wrappedCursor.copyStringToBuffer(i, charArrayBuffer);
   }
 
   @Override @Implementation
-  public short getShort(int i) {
+  protected short getShort(int i) {
     return wrappedCursor.getShort(i);
   }
 
   @Override @Implementation
-  public int getInt(int i) {
+  protected int getInt(int i) {
     return wrappedCursor.getInt(i);
   }
 
   @Override @Implementation
-  public long getLong(int i) {
+  protected long getLong(int i) {
     return wrappedCursor.getLong(i);
   }
 
   @Override @Implementation
-  public float getFloat(int i) {
+  protected float getFloat(int i) {
     return wrappedCursor.getFloat(i);
   }
 
   @Override @Implementation
-  public double getDouble(int i) {
+  protected double getDouble(int i) {
     return wrappedCursor.getDouble(i);
   }
 
   @Override @Implementation
-  public boolean isNull(int i) {
+  protected boolean isNull(int i) {
     return wrappedCursor.isNull(i);
   }
 
   @Implementation
-  public void deactivate() {
+  protected void deactivate() {
     wrappedCursor.deactivate();
   }
 
   @Implementation
-  public boolean requery() {
+  protected boolean requery() {
     return wrappedCursor.requery();
   }
 
   @Override @Implementation
-  public void close() {
+  protected void close() {
     wrappedCursor.close();
   }
 
   @Override @Implementation
-  public boolean isClosed() {
+  protected boolean isClosed() {
     return wrappedCursor.isClosed();
   }
 
   @Override @Implementation
-  public void registerContentObserver(ContentObserver contentObserver) {
+  protected void registerContentObserver(ContentObserver contentObserver) {
     wrappedCursor.registerContentObserver(contentObserver);
   }
 
   @Override @Implementation
-  public void unregisterContentObserver(ContentObserver contentObserver) {
+  protected void unregisterContentObserver(ContentObserver contentObserver) {
     wrappedCursor.unregisterContentObserver(contentObserver);
   }
 
   @Override @Implementation
-  public void registerDataSetObserver(DataSetObserver dataSetObserver) {
+  protected void registerDataSetObserver(DataSetObserver dataSetObserver) {
     wrappedCursor.registerDataSetObserver(dataSetObserver);
   }
 
   @Override @Implementation
-  public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
+  protected void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
     wrappedCursor.unregisterDataSetObserver(dataSetObserver);
   }
 
   @Override @Implementation
-  public void setNotificationUri(ContentResolver contentResolver, Uri uri) {
+  protected void setNotificationUri(ContentResolver contentResolver, Uri uri) {
     wrappedCursor.setNotificationUri(contentResolver, uri);
   }
 
   @Override @Implementation(minSdk = KITKAT)
-  public Uri getNotificationUri() {
+  protected Uri getNotificationUri() {
     return wrappedCursor.getNotificationUri();
   }
 
   @Override @Implementation
-  public boolean getWantsAllOnMoveCalls() {
+  protected boolean getWantsAllOnMoveCalls() {
     return wrappedCursor.getWantsAllOnMoveCalls();
   }
 
   @Override @Implementation(minSdk = M)
-  public void setExtras(Bundle extras) {
+  protected void setExtras(Bundle extras) {
     wrappedCursor.setExtras(extras);
   }
 
   @Override @Implementation
-  public Bundle getExtras() {
+  protected Bundle getExtras() {
     return wrappedCursor.getExtras();
   }
 
   @Override @Implementation
-  public Bundle respond(Bundle bundle) {
+  protected Bundle respond(Bundle bundle) {
     return wrappedCursor.respond(bundle);
   }
 
   @Override @Implementation
-  public int getType(int columnIndex) {
+  protected int getType(int columnIndex) {
     return wrappedCursor.getType(columnIndex);
   }
 
   @Implementation
-  public Cursor getWrappedCursor() {
+  protected Cursor getWrappedCursor() {
     return wrappedCursor;
   }
 }

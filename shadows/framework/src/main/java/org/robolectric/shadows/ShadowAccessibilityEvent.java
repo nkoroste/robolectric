@@ -55,7 +55,7 @@ public class ShadowAccessibilityEvent extends ShadowAccessibilityRecord {
     }};
 
   @Implementation
-  public static AccessibilityEvent obtain(AccessibilityEvent event) {
+  protected static AccessibilityEvent obtain(AccessibilityEvent event) {
     ShadowAccessibilityEvent shadowEvent = Shadow.extract(event);
     AccessibilityEvent obtainedInstance = shadowEvent.getClone();
 
@@ -67,7 +67,7 @@ public class ShadowAccessibilityEvent extends ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public static AccessibilityEvent obtain(int eventType) {
+  protected static AccessibilityEvent obtain(int eventType) {
     // We explicitly avoid allocating the AccessibilityEvent from the actual pool by using
     // the private constructor. Not doing so affects test suites which use both shadow and
     // non-shadow objects.
@@ -84,7 +84,7 @@ public class ShadowAccessibilityEvent extends ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public static AccessibilityEvent obtain() {
+  protected static AccessibilityEvent obtain() {
     return obtain(0);
   }
 
@@ -121,7 +121,7 @@ public class ShadowAccessibilityEvent extends ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public void recycle() {
+  protected void recycle() {
     final StrictEqualityEventWrapper wrapper =
         new StrictEqualityEventWrapper(realAccessibilityEvent);
     if (!obtainedInstances.containsKey(wrapper)) {
@@ -142,52 +142,52 @@ public class ShadowAccessibilityEvent extends ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public void setEventType(int type) {
+  protected void setEventType(int type) {
     eventType = type;
   }
 
   @Implementation
-  public int getEventType() {
+  protected int getEventType() {
     return eventType;
   }
 
   @Implementation
-  public void setContentDescription(CharSequence description) {
+  protected void setContentDescription(CharSequence description) {
     contentDescription = description;
   }
 
   @Implementation
-  public CharSequence getContentDescription() {
+  protected CharSequence getContentDescription() {
     return contentDescription;
   }
 
   @Implementation
-  public void setPackageName(CharSequence name) {
+  protected void setPackageName(CharSequence name) {
     packageName = name;
   }
 
   @Implementation
-  public CharSequence getPackageName() {
+  protected CharSequence getPackageName() {
     return packageName;
   }
 
   @Implementation
-  public void setClassName(CharSequence name) {
+  protected void setClassName(CharSequence name) {
     className = name;
   }
 
   @Implementation
-  public CharSequence getClassName() {
+  protected CharSequence getClassName() {
     return className;
   }
 
   @Implementation
-  public void setEnabled(boolean value) {
+  protected void setEnabled(boolean value) {
     enabled = value;
   }
 
   @Implementation
-  public boolean isEnabled() {
+  protected boolean isEnabled() {
     return enabled;
   }
 
@@ -272,12 +272,12 @@ public class ShadowAccessibilityEvent extends ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public int describeContents() {
+  protected int describeContents() {
     return 0;
   }
 
   @Implementation
-  public void writeToParcel(Parcel dest, int flags) {
+  protected void writeToParcel(Parcel dest, int flags) {
     StrictEqualityEventWrapper wrapper = new StrictEqualityEventWrapper(realAccessibilityEvent);
     int keyOfWrapper = -1;
     for (int i = 0; i < orderedInstances.size(); i++) {

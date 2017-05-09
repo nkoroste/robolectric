@@ -21,14 +21,14 @@ public class ShadowTextToSpeech {
   }
 
   @Implementation
-  public int speak(final String text, final int queueMode, final HashMap<String, String> params) {
+  protected int speak(final String text, final int queueMode, final HashMap<String, String> params) {
     lastSpokenText = text;
     this.queueMode = queueMode;
     return TextToSpeech.SUCCESS;
   }
 
   @Implementation
-  public void shutdown() {
+  protected void shutdown() {
     shutdown = true;
   }
 

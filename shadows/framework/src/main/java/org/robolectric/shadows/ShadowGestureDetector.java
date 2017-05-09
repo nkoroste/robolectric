@@ -35,7 +35,7 @@ public class ShadowGestureDetector {
   }
 
   @Implementation
-  public boolean onTouchEvent(MotionEvent ev) {
+  protected boolean onTouchEvent(MotionEvent ev) {
     lastActiveGestureDetector = realObject;
     onTouchEventMotionEvent = ev;
 
@@ -43,7 +43,7 @@ public class ShadowGestureDetector {
   }
 
   @Implementation
-  public void setOnDoubleTapListener(OnDoubleTapListener onDoubleTapListener) {
+  protected void setOnDoubleTapListener(OnDoubleTapListener onDoubleTapListener) {
     directlyOn(realObject, GestureDetector.class).setOnDoubleTapListener(onDoubleTapListener);
     this.onDoubleTapListener = onDoubleTapListener;
   }

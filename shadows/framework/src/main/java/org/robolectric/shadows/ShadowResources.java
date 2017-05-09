@@ -76,7 +76,7 @@ public class ShadowResources {
   }
 
   @Implementation
-  public static Resources getSystem() {
+  protected static Resources getSystem() {
     if (system == null) {
       AssetManager assetManager = AssetManager.getSystem();
       DisplayMetrics metrics = new DisplayMetrics();
@@ -87,19 +87,19 @@ public class ShadowResources {
   }
 
   @Implementation
-  public TypedArray obtainAttributes(AttributeSet set, int[] attrs) {
+  protected TypedArray obtainAttributes(AttributeSet set, int[] attrs) {
     return shadowOf(realResources.getAssets())
         .attrsToTypedArray(realResources, set, attrs, 0, 0, 0);
   }
 
   @Implementation
-  public String getQuantityString(int id, int quantity, Object... formatArgs) throws Resources.NotFoundException {
+  protected String getQuantityString(int id, int quantity, Object... formatArgs) throws Resources.NotFoundException {
     String raw = getQuantityString(id, quantity);
     return String.format(Locale.ENGLISH, raw, formatArgs);
   }
 
   @Implementation
-  public String getQuantityString(int resId, int quantity) throws Resources.NotFoundException {
+  protected String getQuantityString(int resId, int quantity) throws Resources.NotFoundException {
     ShadowAssetManager shadowAssetManager = shadowOf(realResources.getAssets());
 
     TypedResource typedResource = shadowAssetManager.getResourceTable().getValue(resId, RuntimeEnvironment.getQualifiers());
@@ -121,7 +121,7 @@ public class ShadowResources {
   }
 
   @Implementation
-  public InputStream openRawResource(int id) throws Resources.NotFoundException {
+  protected InputStream openRawResource(int id) throws Resources.NotFoundException {
     ResourceTable resourceTable = shadowOf(realResources.getAssets()).getResourceTable();
     InputStream inputStream = resourceTable.getRawValue(id, RuntimeEnvironment.getQualifiers());
     if (inputStream == null) {
@@ -137,7 +137,7 @@ public class ShadowResources {
    * be thrown.
    */
   @Implementation
-  public AssetFileDescriptor openRawResourceFd(int id) throws Resources.NotFoundException {
+  protected AssetFileDescriptor openRawResourceFd(int id) throws Resources.NotFoundException {
     InputStream inputStream = openRawResource(id);
     if (!(inputStream instanceof FileInputStream)) {
       // todo fixme
@@ -163,7 +163,7 @@ public class ShadowResources {
   }
 
   @Implementation
-  public TypedArray obtainTypedArray(int id) throws Resources.NotFoundException {
+  protected TypedArray obtainTypedArray(int id) throws Resources.NotFoundException {
     ShadowAssetManager shadowAssetManager = shadowOf(realResources.getAssets());
     TypedArray typedArray = shadowAssetManager.getTypedArrayResource(realResources, id);
     if (typedArray != null) {
@@ -192,7 +192,7 @@ public class ShadowResources {
   }
 
   @Implementation
-  public DisplayMetrics getDisplayMetrics() {
+  protected DisplayMetrics getDisplayMetrics() {
     if (displayMetrics == null) {
       if (display == null) {
         display = ReflectionHelpers.callConstructor(Display.class);
@@ -206,13 +206,13 @@ public class ShadowResources {
   }
 
   @HiddenApi @Implementation
-  public XmlResourceParser loadXmlResourceParser(int resId, String type) throws Resources.NotFoundException {
+  protected XmlResourceParser loadXmlResourceParser(int resId, String type) throws Resources.NotFoundException {
     ShadowAssetManager shadowAssetManager = shadowOf(realResources.getAssets());
     return shadowAssetManager.loadXmlResourceParser(resId, type);
   }
 
   @HiddenApi @Implementation
-  public XmlResourceParser loadXmlResourceParser(String file, int id, int assetCookie, String type) throws Resources.NotFoundException {
+  protected XmlResourceParser loadXmlResourceParser(String file, int id, int assetCookie, String type) throws Resources.NotFoundException {
     return loadXmlResourceParser(id, type);
   }
 
@@ -230,17 +230,17 @@ public class ShadowResources {
     }
 
     @Implementation(maxSdk = M)
-    public TypedArray obtainStyledAttributes(int[] attrs) {
+    protected TypedArray obtainStyledAttributes(int[] attrs) {
       return obtainStyledAttributes(0, attrs);
     }
 
     @Implementation(maxSdk = M)
-    public TypedArray obtainStyledAttributes(int resid, int[] attrs) throws android.content.res.Resources.NotFoundException {
+    protected TypedArray obtainStyledAttributes(int resid, int[] attrs) throws android.content.res.Resources.NotFoundException {
       return obtainStyledAttributes(null, attrs, 0, resid);
     }
 
     @Implementation(maxSdk = M)
-    public TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes) {
+    protected TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes) {
       return getShadowAssetManager().attrsToTypedArray(getResources(), set, attrs, defStyleAttr, getNativePtr(), defStyleRes);
     }
 
@@ -254,7 +254,7 @@ public class ShadowResources {
   }
 
   @HiddenApi @Implementation
-  public Drawable loadDrawable(TypedValue value, int id) {
+  protected Drawable loadDrawable(TypedValue value, int id) {
     Drawable drawable = directlyOn(realResources, Resources.class, "loadDrawable",
         ClassParameter.from(TypedValue.class, value), ClassParameter.from(int.class, id));
     setCreatedFromResId(realResources, id, drawable);
@@ -262,7 +262,7 @@ public class ShadowResources {
   }
 
   @Implementation
-  public Drawable loadDrawable(TypedValue value, int id, Resources.Theme theme) throws Resources.NotFoundException {
+  protected Drawable loadDrawable(TypedValue value, int id, Resources.Theme theme) throws Resources.NotFoundException {
     Drawable drawable = directlyOn(realResources, Resources.class, "loadDrawable",
         ClassParameter.from(TypedValue.class, value), ClassParameter.from(int.class, id), ClassParameter.from(Resources.Theme.class, theme));
     setCreatedFromResId(realResources, id, drawable);

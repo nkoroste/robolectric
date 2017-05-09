@@ -35,7 +35,7 @@ public class ShadowAsyncTaskLoader<D> {
   }
 
   @Implementation
-  public void onForceLoad() {
+  protected void onForceLoad() {
     ShadowApplication.getInstance().getBackgroundThreadScheduler().post(new Runnable() {
       @Override
       public void run() {

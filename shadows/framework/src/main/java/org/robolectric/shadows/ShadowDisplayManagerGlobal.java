@@ -18,13 +18,13 @@ public class ShadowDisplayManagerGlobal {
   private static final IDisplayManager displayManager = ReflectionHelpers.createNullProxy(IDisplayManager.class);
 
   @Implementation
-  public static Object getInstance() {
+  protected static Object getInstance() {
     return ReflectionHelpers.callConstructor(DisplayManagerGlobal.class,
         ClassParameter.from(IDisplayManager.class, displayManager));
   }
 
   @Implementation
-  public Object getDisplayInfo(int displayId) {
+  protected Object getDisplayInfo(int displayId) {
     Object result = Shadow.newInstanceOf("android.view.DisplayInfo");
     if (getApiLevel() >= M) {
       ReflectionHelpers.setField(result, "supportedModes", new Display.Mode[]{new Display.Mode(0, 0, 0, 0.0f)});

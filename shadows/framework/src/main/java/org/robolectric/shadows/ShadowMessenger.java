@@ -17,7 +17,7 @@ public class ShadowMessenger {
   }
 
   @Implementation
-  public void send(Message message) throws RemoteException {
+  protected void send(Message message) throws RemoteException {
     message.setTarget(handler);
     message.sendToTarget();
   }

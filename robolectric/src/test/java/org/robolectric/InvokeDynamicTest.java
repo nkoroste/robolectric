@@ -78,7 +78,7 @@ public class InvokeDynamicTest {
     public int x = -2;
 
     @Implementation
-    public void setX(int x) {
+    protected void setX(int x) {
       this.x = x;
       real.x = -x;
     }
@@ -89,7 +89,7 @@ public class InvokeDynamicTest {
     @RealObject RealCopy real;
 
     @Implementation
-    public void setX(int x) {
+    protected void setX(int x) {
       real.x = 1;
     }
   }
@@ -99,7 +99,7 @@ public class InvokeDynamicTest {
     @RealObject RealCopy real;
 
     @Implementation
-    public void setX(int x) {
+    protected void setX(int x) {
       real.x = 2;
     }
   }

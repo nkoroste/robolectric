@@ -224,19 +224,19 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public CharSequence getResourceText(int ident) {
+  protected CharSequence getResourceText(int ident) {
     TypedResource value = getAndResolve(ident, RuntimeEnvironment.getQualifiers(), true);
     if (value == null) return null;
     return (CharSequence) value.getData();
   }
 
   @HiddenApi @Implementation
-  public CharSequence getResourceBagText(int ident, int bagEntryId) {
+  protected CharSequence getResourceBagText(int ident, int bagEntryId) {
     throw new UnsupportedOperationException(); // todo
   }
 
   @HiddenApi @Implementation
-  public String[] getResourceStringArray(final int id) {
+  protected String[] getResourceStringArray(final int id) {
     CharSequence[] resourceTextArray = getResourceTextArray(id);
     if (resourceTextArray == null) return null;
     String[] strings = new String[resourceTextArray.length];
@@ -247,13 +247,13 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public int getResourceIdentifier(String name, String defType, String defPackage) {
+  protected int getResourceIdentifier(String name, String defType, String defPackage) {
     Integer resourceId = resourceTable.getResourceId(ResName.qualifyResName(name, defPackage, defType));
     return resourceId == null ? 0 : resourceId;
   }
 
   @HiddenApi @Implementation
-  public boolean getResourceValue(int ident, int density, TypedValue outValue, boolean resolveRefs) {
+  protected boolean getResourceValue(int ident, int density, TypedValue outValue, boolean resolveRefs) {
     TypedResource value = getAndResolve(ident, RuntimeEnvironment.getQualifiers(), resolveRefs);
     if (value == null) return false;
 
@@ -271,7 +271,7 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public CharSequence[] getResourceTextArray(int resId) {
+  protected CharSequence[] getResourceTextArray(int resId) {
     TypedResource value = getAndResolve(resId, RuntimeEnvironment.getQualifiers(), true);
     if (value == null) return null;
     List<TypedResource> items = getConverter(value).getItems(value);
@@ -284,12 +284,12 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation(maxSdk = KITKAT_WATCH)
-  public boolean getThemeValue(int themePtr, int ident, TypedValue outValue, boolean resolveRefs) {
+  protected boolean getThemeValue(int themePtr, int ident, TypedValue outValue, boolean resolveRefs) {
     return getThemeValue((long) themePtr, ident, outValue, resolveRefs);
   }
 
   @HiddenApi @Implementation(minSdk = LOLLIPOP)
-  public boolean getThemeValue(long themePtr, int ident, TypedValue outValue, boolean resolveRefs) {
+  protected boolean getThemeValue(long themePtr, int ident, TypedValue outValue, boolean resolveRefs) {
     ResName resName = resourceTable.getResName(ident);
 
     ThemeStyleSet themeStyleSet = getNativeTheme(themePtr).themeStyleSet;
@@ -310,28 +310,28 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public void ensureStringBlocks() {
+  protected void ensureStringBlocks() {
   }
 
   @Implementation
-  public final InputStream open(String fileName) throws IOException {
+  protected final InputStream open(String fileName) throws IOException {
     return ShadowApplication.getInstance().getAppManifest().getAssetsDirectory().join(fileName).getInputStream();
   }
 
   @Implementation
-  public final InputStream open(String fileName, int accessMode) throws IOException {
+  protected final InputStream open(String fileName, int accessMode) throws IOException {
     return ShadowApplication.getInstance().getAppManifest().getAssetsDirectory().join(fileName).getInputStream();
   }
 
   @Implementation
-  public final AssetFileDescriptor openFd(String fileName) throws IOException {
+  protected final AssetFileDescriptor openFd(String fileName) throws IOException {
     File file = new File(ShadowApplication.getInstance().getAppManifest().getAssetsDirectory().join(fileName).getPath());
     ParcelFileDescriptor parcelFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
     return new AssetFileDescriptor(parcelFileDescriptor, 0, file.length());
   }
 
   @Implementation
-  public final String[] list(String path) throws IOException {
+  protected final String[] list(String path) throws IOException {
     FsFile file = ShadowApplication.getInstance().getAppManifest().getAssetsDirectory().join(path);
     if (file.isDirectory()) {
       return file.listFileNames();
@@ -340,7 +340,7 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public final InputStream openNonAsset(int cookie, String fileName, int accessMode) throws IOException {
+  protected final InputStream openNonAsset(int cookie, String fileName, int accessMode) throws IOException {
     final ResName resName = qualifyFromNonAssetFileName(fileName);
 
     final FileTypedResource typedResource =
@@ -367,12 +367,12 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public final AssetFileDescriptor openNonAssetFd(int cookie, String fileName) throws IOException {
+  protected final AssetFileDescriptor openNonAssetFd(int cookie, String fileName) throws IOException {
     throw new UnsupportedOperationException();
   }
 
   @Implementation
-  public final XmlResourceParser openXmlResourceParser(int cookie, String fileName) throws IOException {
+  protected final XmlResourceParser openXmlResourceParser(int cookie, String fileName) throws IOException {
     XmlBlock xmlBlock = XmlBlock.create(Fs.fileFromPath(fileName), "fixme");
     if (xmlBlock == null) {
       throw new Resources.NotFoundException(fileName);
@@ -404,26 +404,26 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public int addAssetPath(String path) {
+  protected int addAssetPath(String path) {
     return 1;
   }
 
   @HiddenApi @Implementation
-  public boolean isUpToDate() {
+  protected boolean isUpToDate() {
     return true;
   }
 
   @HiddenApi @Implementation
-  public void setLocale(String locale) {
+  protected void setLocale(String locale) {
   }
 
   @Implementation
-  public String[] getLocales() {
+  protected String[] getLocales() {
     return new String[0]; // todo
   }
 
   @HiddenApi @Implementation
-  public void setConfiguration(int mcc, int mnc, String locale,
+  protected void setConfiguration(int mcc, int mnc, String locale,
                  int orientation, int touchscreen, int density, int keyboard,
                  int keyboardHidden, int navigation, int screenWidth, int screenHeight,
                  int smallestScreenWidthDp, int screenWidthDp, int screenHeightDp,
@@ -431,7 +431,7 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public int[] getArrayIntResource(int resId) {
+  protected int[] getArrayIntResource(int resId) {
     TypedResource value = getAndResolve(resId, RuntimeEnvironment.getQualifiers(), true);
     if (value == null) return null;
     List<TypedResource> items = getConverter(value).getItems(value);
@@ -547,7 +547,7 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation
-  public Number createTheme() {
+  protected Number createTheme() {
     synchronized (nativeThemes) {
       long nativePtr = nextInternalThemeId++;
       nativeThemes.put(nativePtr, new NativeTheme(new ThemeStyleSet()));
@@ -571,36 +571,36 @@ public final class ShadowAssetManager {
   }
 
   @HiddenApi @Implementation(maxSdk = KITKAT_WATCH)
-  public void releaseTheme(int themePtr) {
+  protected void releaseTheme(int themePtr) {
     releaseTheme((long) themePtr);
   }
 
   @HiddenApi @Implementation(minSdk = LOLLIPOP)
-  public void releaseTheme(long themePtr) {
+  protected void releaseTheme(long themePtr) {
     synchronized (nativeThemes) {
       nativeThemes.remove(themePtr);
     }
   }
 
   @HiddenApi @Implementation(maxSdk = KITKAT_WATCH)
-  public static void applyThemeStyle(int themePtr, int styleRes, boolean force) {
+  protected static void applyThemeStyle(int themePtr, int styleRes, boolean force) {
     applyThemeStyle((long) themePtr, styleRes, force);
   }
 
   @HiddenApi @Implementation(minSdk = LOLLIPOP)
-  public static void applyThemeStyle(long themePtr, int styleRes, boolean force) {
+  protected static void applyThemeStyle(long themePtr, int styleRes, boolean force) {
     NativeTheme nativeTheme = getNativeTheme(themePtr);
     Style style = nativeTheme.getShadowAssetManager().resolveStyle(styleRes, null);
     nativeTheme.themeStyleSet.apply(style, force);
 }
 
   @HiddenApi @Implementation(maxSdk = KITKAT_WATCH)
-  public static void copyTheme(int destPtr, int sourcePtr) {
+  protected static void copyTheme(int destPtr, int sourcePtr) {
     copyTheme((long) destPtr, (long) sourcePtr);
   }
 
   @HiddenApi @Implementation(minSdk = LOLLIPOP)
-  public static void copyTheme(long destPtr, long sourcePtr) {
+  protected static void copyTheme(long destPtr, long sourcePtr) {
     NativeTheme destNativeTheme = getNativeTheme(destPtr);
     NativeTheme sourceNativeTheme = getNativeTheme(sourcePtr);
     destNativeTheme.themeStyleSet = sourceNativeTheme.themeStyleSet.copy();
@@ -870,27 +870,27 @@ public final class ShadowAssetManager {
   }
 
   @Implementation
-  public String getResourceName(int resid) {
+  protected String getResourceName(int resid) {
     return getResName(resid).getFullyQualifiedName();
   }
 
   @Implementation
-  public String getResourcePackageName(int resid) {
+  protected String getResourcePackageName(int resid) {
     return getResName(resid).packageName;
   }
 
   @Implementation
-  public String getResourceTypeName(int resid) {
+  protected String getResourceTypeName(int resid) {
     return getResName(resid).type;
   }
 
   @Implementation
-  public String getResourceEntryName(int resid) {
+  protected String getResourceEntryName(int resid) {
    return getResName(resid).name;
   }
 
   @Implementation
-  public final SparseArray<String> getAssignedPackageIdentifiers() {
+  protected final SparseArray<String> getAssignedPackageIdentifiers() {
     return new SparseArray<>();
   }
 

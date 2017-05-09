@@ -10,7 +10,7 @@ import android.os.Build.VERSION_CODES;
 public class ShadowLoadedApk {
 
   @Implementation
-  public ClassLoader getClassLoader() {
+  protected ClassLoader getClassLoader() {
     return this.getClass().getClassLoader();
   }
 

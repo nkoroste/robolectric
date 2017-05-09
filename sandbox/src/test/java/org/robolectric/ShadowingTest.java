@@ -67,7 +67,7 @@ public class ShadowingTest {
   @Implements(ClassWithProtectedMethod.class)
   public static class ShadowClassWithProtectedMethod {
     @Implementation
-    public String getName() {
+    protected String getName() {
       return "shadow name";
     }
   }
@@ -99,12 +99,12 @@ public class ShadowingTest {
     private int color;
 
     @Implementation
-    public void setColor(int color) {
+    protected void setColor(int color) {
       this.color = color;
     }
 
     @Implementation
-    public int getColor() {
+    protected int getColor() {
       return color;
     }
   }
@@ -232,7 +232,7 @@ public class ShadowingTest {
   @Implements(NonInstrumentedClass.class)
   public static class ShadowNonInstrumentedClass {
     @Implementation
-    public int plus(int x) {
+    protected int plus(int x) {
       return x + 2;
     }
   }

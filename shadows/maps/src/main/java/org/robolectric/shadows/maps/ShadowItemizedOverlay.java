@@ -21,7 +21,7 @@ public class ShadowItemizedOverlay<Item extends OverlayItem> {
   private ItemizedOverlay<Item> realObject;
 
   @Implementation
-  public final void populate() {
+  protected final void populate() {
     isPopulated = true;
 
     items.clear();
@@ -31,22 +31,22 @@ public class ShadowItemizedOverlay<Item extends OverlayItem> {
   }
 
   @Implementation
-  public final Item getItem(int position) {
+  protected final Item getItem(int position) {
     return items.get(position);
   }
 
   @Implementation
-  public boolean hitTest(OverlayItem item, android.graphics.drawable.Drawable drawable, int i, int i1) {
+  protected boolean hitTest(OverlayItem item, android.graphics.drawable.Drawable drawable, int i, int i1) {
     return shouldHit;
   }
 
   @Implementation
-  public void setLastFocusedIndex(int i) {
+  protected void setLastFocusedIndex(int i) {
     lastFocusedIndexWasReset = (i == -1);
   }
 
   @Implementation
-  public static Drawable boundCenterBottom(Drawable drawable) {
+  protected static Drawable boundCenterBottom(Drawable drawable) {
     return drawable;
   }
 

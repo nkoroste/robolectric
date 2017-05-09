@@ -21,7 +21,7 @@ public class ShadowWindowManagerImpl extends ShadowWindowManager {
   private List<View> views = new ArrayList<>();
 
   @Implementation
-  public void addView(View view, android.view.ViewGroup.LayoutParams layoutParams) {
+  protected void addView(View view, android.view.ViewGroup.LayoutParams layoutParams) {
     views.add(view);
     directlyOn(realObject, WINDOW_MANAGER_IMPL_CLASS_NAME, "addView",
         ClassParameter.from(View.class, view),
@@ -29,7 +29,7 @@ public class ShadowWindowManagerImpl extends ShadowWindowManager {
   }
 
   @Implementation
-  public void removeView(View view) {
+  protected void removeView(View view) {
     views.remove(view);
     directlyOn(realObject, WINDOW_MANAGER_IMPL_CLASS_NAME, "removeView", ClassParameter.from(View.class, view));
   }

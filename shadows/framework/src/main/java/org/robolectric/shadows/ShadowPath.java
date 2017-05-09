@@ -29,25 +29,25 @@ public class ShadowPath {
   }
 
   @Implementation
-  public void moveTo(float x, float y) {
+  protected void moveTo(float x, float y) {
     Point p = new Point(x, y, MOVE_TO);
     points.add(p);
     wasMovedTo = p;
   }
 
   @Implementation
-  public void lineTo(float x, float y) {
+  protected void lineTo(float x, float y) {
     Point point = new Point(x, y, LINE_TO);
     points.add(point);
   }
 
   @Implementation
-  public void quadTo(float x1, float y1, float x2, float y2) {
+  protected void quadTo(float x1, float y1, float x2, float y2) {
     quadDescription = "Add a quadratic bezier from last point, approaching (" + x1 + "," + y1 + "), ending at (" + x2 + "," + y2 + ")";
   }
 
   @Implementation
-  public void reset() {
+  protected void reset() {
     points.clear();
     wasMovedTo = null;
     quadDescription = "";

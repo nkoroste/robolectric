@@ -20,38 +20,38 @@ public class ShadowAlarmManager {
   private List<ScheduledAlarm> scheduledAlarms = new ArrayList<ScheduledAlarm>();
 
   @Implementation
-  public void set(int type, long triggerAtTime, PendingIntent operation) {
+  protected void set(int type, long triggerAtTime, PendingIntent operation) {
     internalSet(type, triggerAtTime, 0L, operation);
   }
 
   @Implementation(minSdk = KITKAT)
-  public void setExact(int type, long triggerAtTime, PendingIntent operation) {
+  protected void setExact(int type, long triggerAtTime, PendingIntent operation) {
     internalSet(type, triggerAtTime, 0L, operation);
   }
 
   @Implementation(minSdk = KITKAT)
-  public void setWindow(
+  protected void setWindow(
           int type, long windowStartMillis, long windowLengthMillis, PendingIntent operation) {
     internalSet(type, windowStartMillis, 0L, operation);
   }
 
   @Implementation(minSdk = M)
-  public void setAndAllowWhileIdle(int type, long triggerAtTime, PendingIntent operation) {
+  protected void setAndAllowWhileIdle(int type, long triggerAtTime, PendingIntent operation) {
     internalSet(type, triggerAtTime, 0L, operation);
   }
 
   @Implementation(minSdk = M)
-  public void setExactAndAllowWhileIdle(int type, long triggerAtTime, PendingIntent operation) {
+  protected void setExactAndAllowWhileIdle(int type, long triggerAtTime, PendingIntent operation) {
     internalSet(type, triggerAtTime, 0L, operation);
   }
 
   @Implementation
-  public void setRepeating(int type, long triggerAtTime, long interval, PendingIntent operation) {
+  protected void setRepeating(int type, long triggerAtTime, long interval, PendingIntent operation) {
     internalSet(type, triggerAtTime, interval, operation);
   }
 
   @Implementation
-  public void setInexactRepeating(int type, long triggerAtMillis, long intervalMillis, PendingIntent operation) {
+  protected void setInexactRepeating(int type, long triggerAtMillis, long intervalMillis, PendingIntent operation) {
     internalSet(type, triggerAtMillis, intervalMillis, operation);
   }
 
@@ -101,7 +101,7 @@ public class ShadowAlarmManager {
   }
 
   @Implementation
-  public void cancel(PendingIntent pendingIntent) {
+  protected void cancel(PendingIntent pendingIntent) {
     final Intent intentTypeToRemove = Shadows.shadowOf(pendingIntent).getSavedIntent();
     for (ScheduledAlarm scheduledAlarm : new ArrayList<ScheduledAlarm>(scheduledAlarms)) {
       final Intent alarmIntent = Shadows.shadowOf(scheduledAlarm.operation).getSavedIntent();

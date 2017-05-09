@@ -19,7 +19,7 @@ public class ShadowSoundPool {
   SoundPool realObject;
 
   @Implementation(minSdk = M)
-  public void __constructor__(int maxStreams, AudioAttributes attributes) {
+  protected void __constructor__(int maxStreams, AudioAttributes attributes) {
     if (getApiLevel() >= M) {
       ReflectionHelpers.setField(realObject, "mLock", new Object());
     } else {

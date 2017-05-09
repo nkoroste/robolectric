@@ -30,38 +30,38 @@ public class ShadowNetworkInfo {
   }
 
   @Implementation
-  public boolean isConnected() {
+  protected boolean isConnected() {
     return isConnected;
   }
 
   @Implementation
-  public boolean isConnectedOrConnecting() {
+  protected boolean isConnectedOrConnecting() {
     return isConnected;
   }
 
   @Implementation
-  public NetworkInfo.State getState() {
+  protected NetworkInfo.State getState() {
     return isConnected ? NetworkInfo.State.CONNECTED :
       NetworkInfo.State.DISCONNECTED;
   }
 
   @Implementation
-  public NetworkInfo.DetailedState getDetailedState() {
+  protected NetworkInfo.DetailedState getDetailedState() {
     return detailedState;
   }
 
   @Implementation
-  public int getType(){
+  protected int getType(){
     return connectionType;
   }
 
   @Implementation
-  public int getSubtype() {
+  protected int getSubtype() {
     return connectionSubType;
   }
 
   @Implementation
-  public boolean isAvailable() {
+  protected boolean isAvailable() {
     return isAvailable;
   }
 

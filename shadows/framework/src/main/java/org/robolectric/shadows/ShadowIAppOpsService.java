@@ -13,7 +13,7 @@ public class ShadowIAppOpsService {
   public static class ShadowStub {
 
     @Implementation
-    public static IAppOpsService asInterface(IBinder obj) {
+    protected static IAppOpsService asInterface(IBinder obj) {
       return ReflectionHelpers.createNullProxy(IAppOpsService.class);
     }
   }

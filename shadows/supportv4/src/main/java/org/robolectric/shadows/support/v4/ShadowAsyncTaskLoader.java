@@ -34,7 +34,7 @@ public class ShadowAsyncTaskLoader<D> {
   }
 
   @Implementation
-  public void onForceLoad() {
+  protected void onForceLoad() {
     Robolectric.getBackgroundThreadScheduler().post(new Runnable() {
       @Override
       public void run() {

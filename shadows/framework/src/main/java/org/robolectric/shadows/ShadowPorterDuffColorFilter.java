@@ -17,12 +17,12 @@ public class ShadowPorterDuffColorFilter {
   }
 
   @Implementation
-  public void setColor(int color) {
+  protected void setColor(int color) {
     this.color = color;
   }
 
   @Implementation
-  public void setMode(PorterDuff.Mode mode) {
+  protected void setMode(PorterDuff.Mode mode) {
     this.mode = mode;
   }
 

@@ -36,12 +36,12 @@ public class ShadowDisplay {
   private int pixelFormat = PixelFormat.RGBA_4444;
 
   @Implementation
-  public int getHeight() {
+  protected int getHeight() {
     return height;
   }
 
   @Implementation
-  public void getMetrics(DisplayMetrics outMetrics) {
+  protected void getMetrics(DisplayMetrics outMetrics) {
     outMetrics.density = density;
     outMetrics.densityDpi = densityDpi;
     outMetrics.scaledDensity = scaledDensity;
@@ -52,54 +52,54 @@ public class ShadowDisplay {
   }
 
   @Implementation
-  public void getRealMetrics(DisplayMetrics outMetrics) {
+  protected void getRealMetrics(DisplayMetrics outMetrics) {
     getMetrics(outMetrics);
     outMetrics.widthPixels = realWidth;
     outMetrics.heightPixels = realHeight;
   }
 
   @Implementation
-  public int getWidth() {
+  protected int getWidth() {
     return width;
   }
 
   @Implementation
-  public int getDisplayId() {
+  protected int getDisplayId() {
     return displayId;
   }
 
   @Implementation
-  public String getName() {
+  protected String getName() {
     return name;
   }
 
   @Implementation
-  public int getFlags() {
+  protected int getFlags() {
     return flags;
   }
 
   @Implementation
-  public float getRefreshRate() {
+  protected float getRefreshRate() {
     return refreshRate;
   }
 
   @Implementation
-  public int getOrientation() {
+  protected int getOrientation() {
     return getRotation();
   }
 
   @Implementation
-  public int getRotation() {
+  protected int getRotation() {
     return rotation;
   }
 
   @Implementation
-  public int getPixelFormat() {
+  protected int getPixelFormat() {
     return pixelFormat;
   }
 
   @Implementation
-  public void getCurrentSizeRange(Point outSmallestSize, Point outLargestSize) {
+  protected void getCurrentSizeRange(Point outSmallestSize, Point outLargestSize) {
     int minimum = Math.min(width, height);
     int maximum = Math.max(width, height);
     outSmallestSize.set(minimum, minimum);
@@ -107,22 +107,22 @@ public class ShadowDisplay {
   }
 
   @Implementation
-  public void getSize(Point outSize) {
+  protected void getSize(Point outSize) {
     outSize.set(width, height);
   }
 
   @Implementation
-  public void getRectSize(Rect outSize) {
+  protected void getRectSize(Rect outSize) {
     outSize.set(0, 0, width, height);
   }
 
   @Implementation
-  public void getRealSize(Point outSize) {
+  protected void getRealSize(Point outSize) {
     outSize.set(realWidth, realHeight);
   }
 
   @Implementation(minSdk = LOLLIPOP)
-  public int getState() {
+  protected int getState() {
     return Display.STATE_ON;
   }
 
@@ -207,7 +207,7 @@ public class ShadowDisplay {
   }
 
   @Implementation(minSdk = KITKAT)
-  public Object getDisplayAdjustments() {
+  protected Object getDisplayAdjustments() {
     return new DisplayAdjustments();
   }
 }

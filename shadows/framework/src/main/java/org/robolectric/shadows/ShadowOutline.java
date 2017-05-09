@@ -11,6 +11,6 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 public class ShadowOutline {
 
   @Implementation
-  public void setConvexPath(Path convexPath) {
+  protected void setConvexPath(Path convexPath) {
   }
 }

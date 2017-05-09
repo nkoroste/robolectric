@@ -28,7 +28,7 @@ public class ShadowAlertController {
   private int iconId;
 
   @Implementation
-  public void setTitle(CharSequence title) throws InvocationTargetException, IllegalAccessException {
+  protected void setTitle(CharSequence title) throws InvocationTargetException, IllegalAccessException {
     this.title = title;
     directlyOn(realAlertController, AlertController.class).setTitle(title);
   }
@@ -38,7 +38,7 @@ public class ShadowAlertController {
   }
 
   @Implementation
-  public void setCustomTitle(View customTitleView) {
+  protected void setCustomTitle(View customTitleView) {
     this.customTitleView = customTitleView;
     directlyOn(realAlertController, AlertController.class).setCustomTitle(customTitleView);
   }
@@ -48,7 +48,7 @@ public class ShadowAlertController {
   }
 
   @Implementation
-  public void setMessage(CharSequence message) {
+  protected void setMessage(CharSequence message) {
     this.message = message;
     directlyOn(realAlertController, AlertController.class).setMessage(message);
   }
@@ -58,18 +58,18 @@ public class ShadowAlertController {
   }
 
   @Implementation
-  public void setView(View view) {
+  protected void setView(View view) {
     this.view = view;
     directlyOn(realAlertController, AlertController.class).setView(view);
   }
 
   @Implementation(minSdk = KITKAT)
-  public void setView(int resourceId) {
+  protected void setView(int resourceId) {
     setView(LayoutInflater.from(RuntimeEnvironment.application).inflate(resourceId, null));
   }
 
   @Implementation
-  public void setIcon(int iconId) {
+  protected void setIcon(int iconId) {
     this.iconId = iconId;
     directlyOn(realAlertController, AlertController.class).setIcon(iconId);
   }

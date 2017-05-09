@@ -9,7 +9,7 @@ import org.robolectric.annotation.Implements;
 public class ShadowMediaRouter {
 
   @Implementation
-  public int getRouteCount() {
+  protected int getRouteCount() {
     return 0;
   }
 }

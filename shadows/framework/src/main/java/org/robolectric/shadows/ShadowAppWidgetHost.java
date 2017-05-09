@@ -37,12 +37,12 @@ public class ShadowAppWidgetHost {
   }
 
   @Implementation
-  public int allocateAppWidgetId() {
+  protected int allocateAppWidgetId() {
     return appWidgetIdToAllocate;
   }
 
   @Implementation
-  public AppWidgetHostView createView(Context context, int appWidgetId,
+  protected AppWidgetHostView createView(Context context, int appWidgetId,
                     AppWidgetProviderInfo appWidget) {
     AppWidgetHostView hostView = new AppWidgetHostView(context);
     hostView.setAppWidget(appWidgetId, appWidget);

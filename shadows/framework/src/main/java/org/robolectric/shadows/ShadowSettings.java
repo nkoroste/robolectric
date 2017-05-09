@@ -20,13 +20,13 @@ public class ShadowSettings {
     private static final WeakHashMap<ContentResolver, Map<String, Object>> dataMap = new WeakHashMap<ContentResolver, Map<String, Object>>();
 
     @Implementation
-    public static boolean putInt(ContentResolver cr, String name, int value) {
+    protected static boolean putInt(ContentResolver cr, String name, int value) {
       get(cr).put(name, value);
       return true;
     }
 
     @Implementation
-    public static int getInt(ContentResolver cr, String name, int def) {
+    protected static int getInt(ContentResolver cr, String name, int def) {
       if (get(cr).get(name) instanceof Integer) {
         return (Integer) get(cr).get(name);
       } else {
@@ -35,7 +35,7 @@ public class ShadowSettings {
     }
 
     @Implementation
-    public static int getInt(ContentResolver cr, String name) throws Settings.SettingNotFoundException {
+    protected static int getInt(ContentResolver cr, String name) throws Settings.SettingNotFoundException {
       if (get(cr).get(name) instanceof Integer) {
         return (Integer) get(cr).get(name);
       } else {
@@ -44,13 +44,13 @@ public class ShadowSettings {
     }
 
     @Implementation
-    public static boolean putString(ContentResolver cr, String name, String value) {
+    protected static boolean putString(ContentResolver cr, String name, String value) {
       get(cr).put(name, value);
       return true;
     }
 
     @Implementation
-    public static String getString(ContentResolver cr, String name) {
+    protected static String getString(ContentResolver cr, String name) {
       if (get(cr).get(name) instanceof String) {
         return (String) get(cr).get(name);
       } else {
@@ -59,18 +59,18 @@ public class ShadowSettings {
     }
 
     @Implementation(minSdk = JELLY_BEAN_MR1)
-    public static String getStringForUser(ContentResolver cr, String name, int userHandle) {
+    protected static String getStringForUser(ContentResolver cr, String name, int userHandle) {
       return getString(cr, name);
     }
 
     @Implementation
-    public static boolean putLong(ContentResolver cr, String name, long value) {
+    protected static boolean putLong(ContentResolver cr, String name, long value) {
       get(cr).put(name, value);
       return true;
     }
 
     @Implementation
-    public static long getLong(ContentResolver cr, String name, long def) {
+    protected static long getLong(ContentResolver cr, String name, long def) {
       if (get(cr).get(name) instanceof Long) {
         return (Long) get(cr).get(name);
       } else {
@@ -79,7 +79,7 @@ public class ShadowSettings {
     }
 
     @Implementation
-    public static long getLong(ContentResolver cr, String name) throws Settings.SettingNotFoundException {
+    protected static long getLong(ContentResolver cr, String name) throws Settings.SettingNotFoundException {
       if (get(cr).get(name) instanceof Long) {
         return (Long) get(cr).get(name);
       } else {
@@ -88,13 +88,13 @@ public class ShadowSettings {
     }
 
     @Implementation
-    public static boolean putFloat(ContentResolver cr, String name, float value) {
+    protected static boolean putFloat(ContentResolver cr, String name, float value) {
       get(cr).put(name, value);
       return true;
     }
 
     @Implementation
-    public static float getFloat(ContentResolver cr, String name, float def) {
+    protected static float getFloat(ContentResolver cr, String name, float def) {
       if (get(cr).get(name) instanceof Float) {
         return (Float) get(cr).get(name);
       } else {
@@ -103,7 +103,7 @@ public class ShadowSettings {
     }
 
     @Implementation
-    public static float getFloat(ContentResolver cr, String name) throws Settings.SettingNotFoundException {
+    protected static float getFloat(ContentResolver cr, String name) throws Settings.SettingNotFoundException {
       if (get(cr).get(name) instanceof Float) {
         return (Float) get(cr).get(name);
       } else {

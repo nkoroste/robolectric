@@ -47,12 +47,12 @@ public class ShadowTypedArray {
   }
 
   @HiddenApi @Implementation
-  public CharSequence loadStringValueAt(int index) {
+  protected CharSequence loadStringValueAt(int index) {
     return stringData[index / ShadowAssetManager.STYLE_NUM_ENTRIES];
   }
 
   @Implementation
-  public String getPositionDescription() {
+  protected String getPositionDescription() {
     return positionDescription;
   }
 

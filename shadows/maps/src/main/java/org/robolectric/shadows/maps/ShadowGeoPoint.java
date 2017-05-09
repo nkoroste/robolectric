@@ -17,12 +17,12 @@ public class ShadowGeoPoint {
   }
 
   @Implementation
-  public int getLatitudeE6() {
+  protected int getLatitudeE6() {
     return lat;
   }
 
   @Implementation
-  public int getLongitudeE6() {
+  protected int getLongitudeE6() {
     return lng;
   }
 

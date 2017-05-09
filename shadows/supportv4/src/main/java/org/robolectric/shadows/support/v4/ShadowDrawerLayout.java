@@ -14,7 +14,7 @@ public class ShadowDrawerLayout extends ShadowViewGroup {
   private DrawerLayout.DrawerListener drawerListener;
 
   @Implementation
-  public void setDrawerListener(DrawerLayout.DrawerListener drawerListener) {
+  protected void setDrawerListener(DrawerLayout.DrawerListener drawerListener) {
     this.drawerListener = drawerListener;
     directlyOn(realDrawerLayout, DrawerLayout.class).setDrawerListener(drawerListener);
   }

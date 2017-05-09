@@ -19,25 +19,25 @@ public class ShadowMapActivity extends ShadowActivity {
   }
 
   @Implementation
-  public void onCreate(Bundle bundle) {
+  protected void onCreate(Bundle bundle) {
   }
 
   @Implementation
-  public void onResume() {
+  protected void onResume() {
     realActivity.registerReceiver(connectivityBroadcastReceiver, new IntentFilter());
   }
 
   @Implementation
-  public void onPause() {
+  protected void onPause() {
     realActivity.unregisterReceiver(connectivityBroadcastReceiver);
   }
 
   @Implementation
-  public void onDestroy() {
+  protected void onDestroy() {
   }
 
   @Implementation
-  public boolean isRouteDisplayed() {
+  protected boolean isRouteDisplayed() {
     return false;
   }
 

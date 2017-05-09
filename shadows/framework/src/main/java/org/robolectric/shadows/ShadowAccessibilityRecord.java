@@ -24,7 +24,7 @@ public class ShadowAccessibilityRecord {
   private int virtualDescendantId;
 
   @Implementation
-  public void setSource(View root, int virtualDescendantId) {
+  protected void setSource(View root, int virtualDescendantId) {
     this.sourceRoot = root;
     this.virtualDescendantId = virtualDescendantId;
     Shadow.directlyOn(realRecord, AccessibilityRecord.class, "setSource",
@@ -33,7 +33,7 @@ public class ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public void setSource(View root) {
+  protected void setSource(View root) {
     this.sourceRoot = root;
     this.virtualDescendantId = NO_VIRTUAL_ID;
     Shadow.directlyOn(realRecord, AccessibilityRecord.class, "setSource",
@@ -41,12 +41,12 @@ public class ShadowAccessibilityRecord {
   }
 
   @Implementation
-  public void setParcelableData(Parcelable data) {
+  protected void setParcelableData(Parcelable data) {
     parcelableData = data;
   }
 
   @Implementation
-  public Parcelable getParcelableData() {
+  protected Parcelable getParcelableData() {
     return parcelableData;
   }
 

@@ -32,17 +32,17 @@ public class ShadowPicture {
   }
 
   @Implementation
-  public int getWidth() {
+  protected int getWidth() {
     return width;
   }
 
   @Implementation
-  public int getHeight() {
+  protected int getHeight() {
     return height;
   }
 
   @Implementation
-  public Canvas beginRecording(int width, int height) {
+  protected Canvas beginRecording(int width, int height) {
     this.width = width;
     this.height = height;
     return new Canvas(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));

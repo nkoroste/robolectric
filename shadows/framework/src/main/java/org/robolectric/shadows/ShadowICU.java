@@ -13,17 +13,17 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 public class ShadowICU {
 
   @Implementation
-  public static String addLikelySubtags(String locale) {
+  protected static String addLikelySubtags(String locale) {
     return "en-US";
   }
 
   @Implementation(minSdk = LOLLIPOP)
-  public static String getBestDateTimePattern(String skeleton, Locale locale) {
+  protected static String getBestDateTimePattern(String skeleton, Locale locale) {
     return skeleton;
   }
 
   @Implementation(maxSdk = KITKAT_WATCH)
-  public static String getBestDateTimePattern(String skeleton, String locale) {
+  protected static String getBestDateTimePattern(String skeleton, String locale) {
     return skeleton;
   }
 }

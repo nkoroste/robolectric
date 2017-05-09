@@ -19,7 +19,7 @@ public class ShadowAudioEffect {
   }
 
   @Implementation
-  public static AudioEffect.Descriptor[] queryEffects() {
+  protected static AudioEffect.Descriptor[] queryEffects() {
     return DESCRIPTORS.toArray(new AudioEffect.Descriptor[DESCRIPTORS.size()]);
   }
 

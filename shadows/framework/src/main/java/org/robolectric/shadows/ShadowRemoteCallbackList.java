@@ -34,12 +34,12 @@ public class ShadowRemoteCallbackList<E extends IInterface> {
   }
 
   @Implementation
-  public boolean register(E callback) {
+  protected boolean register(E callback) {
     return register(callback, null);
   }
 
   @Implementation
-  public boolean register(E callback, Object cookie) {
+  protected boolean register(E callback, Object cookie) {
     synchronized (callbacks) {
       if (killed) {
         return false;
@@ -57,7 +57,7 @@ public class ShadowRemoteCallbackList<E extends IInterface> {
   }
 
   @Implementation
-  public boolean unregister(E callback) {
+  protected boolean unregister(E callback) {
     synchronized (callbacks) {
       Callback cb = callbacks.remove(callback.asBinder());
       if (cb != null) {
@@ -69,7 +69,7 @@ public class ShadowRemoteCallbackList<E extends IInterface> {
   }
 
   @Implementation
-  public void kill() {
+  protected void kill() {
     synchronized (callbacks) {
       for (Callback cb : callbacks.values()) {
         cb.callback.asBinder().unlinkToDeath(cb, 0);
@@ -80,15 +80,15 @@ public class ShadowRemoteCallbackList<E extends IInterface> {
   }
 
   @Implementation
-  public void onCallbackDied(E callback) {}
+  protected void onCallbackDied(E callback) {}
 
   @Implementation
-  public void onCallbackDied(E callback, Object cookie) {
+  protected void onCallbackDied(E callback, Object cookie) {
     onCallbackDied(callback);
   }
 
   @Implementation
-  public int beginBroadcast() {
+  protected int beginBroadcast() {
     synchronized (callbacks) {
       if (broadcastCount > 0) {
         throw new IllegalStateException("beginBroadcast() called while already in a broadcast");
@@ -110,17 +110,17 @@ public class ShadowRemoteCallbackList<E extends IInterface> {
   }
 
   @Implementation
-  public E getBroadcastItem(int index) {
+  protected E getBroadcastItem(int index) {
     return ((Callback) activeBroadcast[index]).callback;
   }
 
   @Implementation
-  public Object getBroadcastCookie(int index) {
+  protected Object getBroadcastCookie(int index) {
     return ((Callback) activeBroadcast[index]).cookie;
   }
 
   @Implementation
-  public void finishBroadcast() {
+  protected void finishBroadcast() {
     if (broadcastCount < 0) {
       throw new IllegalStateException("finishBroadcast() called outside of a broadcast");
     }

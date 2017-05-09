@@ -20,12 +20,12 @@ public class ShadowSmsManager {
   private DataMessageParams lastDataParams;
 
   @Implementation
-  public static SmsManager getDefault() {
+  protected static SmsManager getDefault() {
     return realManager;
   }
 
   @Implementation
-  public void sendDataMessage(String destinationAddress, String scAddress, short destinationPort, byte[] data, PendingIntent sentIntent, PendingIntent deliveryIntent) {
+  protected void sendDataMessage(String destinationAddress, String scAddress, short destinationPort, byte[] data, PendingIntent sentIntent, PendingIntent deliveryIntent) {
     if (TextUtils.isEmpty(destinationAddress)) {
       throw new IllegalArgumentException("Invalid destinationAddress");
     }
@@ -34,7 +34,7 @@ public class ShadowSmsManager {
   }
 
   @Implementation
-  public void sendTextMessage(String destinationAddress, String scAddress, String text, PendingIntent sentIntent, PendingIntent deliveryIntent) {
+  protected void sendTextMessage(String destinationAddress, String scAddress, String text, PendingIntent sentIntent, PendingIntent deliveryIntent) {
     if (TextUtils.isEmpty(destinationAddress)) {
       throw new IllegalArgumentException("Invalid destinationAddress");
     }
@@ -47,7 +47,7 @@ public class ShadowSmsManager {
   }
 
   @Implementation
-  public void sendMultipartTextMessage(String destinationAddress, String scAddress, ArrayList<String> parts, ArrayList<PendingIntent> sentIntents, ArrayList<PendingIntent> deliveryIntents) {
+  protected void sendMultipartTextMessage(String destinationAddress, String scAddress, ArrayList<String> parts, ArrayList<PendingIntent> sentIntents, ArrayList<PendingIntent> deliveryIntents) {
     if (TextUtils.isEmpty(destinationAddress)) {
       throw new IllegalArgumentException("Invalid destinationAddress");
     }

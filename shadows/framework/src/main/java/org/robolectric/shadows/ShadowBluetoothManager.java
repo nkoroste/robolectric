@@ -11,7 +11,7 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR2;
 public class ShadowBluetoothManager {
 
     @Implementation
-    public BluetoothAdapter getAdapter() {
+    protected BluetoothAdapter getAdapter() {
       return BluetoothAdapter.getDefaultAdapter();
     }
 }

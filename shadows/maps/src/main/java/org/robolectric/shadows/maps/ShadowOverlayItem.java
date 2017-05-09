@@ -21,17 +21,17 @@ public class ShadowOverlayItem {
   }
 
   @Implementation
-  public GeoPoint getPoint() {
+  protected GeoPoint getPoint() {
     return geoPoint;
   }
 
   @Implementation
-  public String getTitle() {
+  protected String getTitle() {
     return title;
   }
 
   @Implementation
-  public String getSnippet() {
+  protected String getSnippet() {
     return snippet;
   }
 

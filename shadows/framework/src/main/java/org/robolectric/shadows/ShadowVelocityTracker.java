@@ -34,7 +34,7 @@ public class ShadowVelocityTracker {
   }
 
   @Implementation
-  public void clear() {
+  protected void clear() {
     maybeInitialize();
     curIndex = 0;
     computedVelocityX.clear();
@@ -45,7 +45,7 @@ public class ShadowVelocityTracker {
   }
 
   @Implementation
-  public void addMovement(MotionEvent event) {
+  protected void addMovement(MotionEvent event) {
     maybeInitialize();
     if (event == null) {
       throw new IllegalArgumentException("event must not be null");
@@ -63,12 +63,12 @@ public class ShadowVelocityTracker {
   }
 
   @Implementation
-  public void computeCurrentVelocity(int units) {
+  protected void computeCurrentVelocity(int units) {
     computeCurrentVelocity(units, Float.MAX_VALUE);
   }
 
   @Implementation
-  public void computeCurrentVelocity(int units, float maxVelocity) {
+  protected void computeCurrentVelocity(int units, float maxVelocity) {
     maybeInitialize();
 
     // Estimation based on AOSP's LegacyVelocityTrackerStrategy
@@ -130,17 +130,17 @@ public class ShadowVelocityTracker {
   }
 
   @Implementation
-  public float getXVelocity() {
+  protected float getXVelocity() {
     return getXVelocity(ACTIVE_POINTER_ID);
   }
 
   @Implementation
-  public float getYVelocity() {
+  protected float getYVelocity() {
     return getYVelocity(ACTIVE_POINTER_ID);
   }
 
   @Implementation
-  public float getXVelocity(int id) {
+  protected float getXVelocity(int id) {
     if (id == ACTIVE_POINTER_ID) {
       id = activePointerId;
     }
@@ -149,7 +149,7 @@ public class ShadowVelocityTracker {
   }
 
   @Implementation
-  public float getYVelocity(int id) {
+  protected float getYVelocity(int id) {
     if (id == ACTIVE_POINTER_ID) {
       id = activePointerId;
     }

@@ -496,7 +496,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
   }
 
   @Implementation
-  public static MediaPlayer create(Context context, int resId) {
+  protected static MediaPlayer create(Context context, int resId) {
     MediaPlayer mp = new MediaPlayer();
     ShadowMediaPlayer shadow = shadowOf(mp);
     shadow.sourceResId = resId;
@@ -511,7 +511,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
   }
 
   @Implementation
-  public static MediaPlayer create(Context context, Uri uri) {
+  protected static MediaPlayer create(Context context, Uri uri) {
     MediaPlayer mp = new MediaPlayer();
     try {
       mp.setDataSource(context, uri);
@@ -607,23 +607,23 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
   }
   
   @Implementation
-  public void setDataSource(String path) throws IOException {
+  protected void setDataSource(String path) throws IOException {
     setDataSource(toDataSource(path));
   }
 
   @Implementation
-  public void setDataSource(Context context, Uri uri, Map<String, String> headers) throws IOException {
+  protected void setDataSource(Context context, Uri uri, Map<String, String> headers) throws IOException {
     setDataSource(toDataSource(context, uri, headers));
     sourceUri = uri;
   }
 
   @Implementation
-  public void setDataSource(String uri, Map<String, String> headers) throws IOException {
+  protected void setDataSource(String uri, Map<String, String> headers) throws IOException {
     setDataSource(toDataSource(uri, headers));
   }
 
   @Implementation
-  public void setDataSource(FileDescriptor fd, long offset, long length) throws IOException {
+  protected void setDataSource(FileDescriptor fd, long offset, long length) throws IOException {
     setDataSource(toDataSource(fd, offset, length));
   }
 
@@ -749,33 +749,33 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
   }
 
   @Implementation
-  public void setOnCompletionListener(MediaPlayer.OnCompletionListener listener) {
+  protected void setOnCompletionListener(MediaPlayer.OnCompletionListener listener) {
     completionListener = listener;
   }
 
   @Implementation
-  public void setOnSeekCompleteListener(
+  protected void setOnSeekCompleteListener(
       MediaPlayer.OnSeekCompleteListener listener) {
     seekCompleteListener = listener;
   }
 
   @Implementation
-  public void setOnPreparedListener(MediaPlayer.OnPreparedListener listener) {
+  protected void setOnPreparedListener(MediaPlayer.OnPreparedListener listener) {
     preparedListener = listener;
   }
 
   @Implementation
-  public void setOnInfoListener(MediaPlayer.OnInfoListener listener) {
+  protected void setOnInfoListener(MediaPlayer.OnInfoListener listener) {
     infoListener = listener;
   }
 
   @Implementation
-  public void setOnErrorListener(MediaPlayer.OnErrorListener listener) {
+  protected void setOnErrorListener(MediaPlayer.OnErrorListener listener) {
     errorListener = listener;
   }
 
   @Implementation
-  public boolean isLooping() {
+  protected boolean isLooping() {
     checkStateException("isLooping()", nonEndStates);
     return looping;
   }
@@ -786,20 +786,20 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
       .complementOf(EnumSet.of(ERROR, END));
 
   @Implementation
-  public void setLooping(boolean looping) {
+  protected void setLooping(boolean looping) {
     checkStateError("setLooping()", nonErrorStates);
     this.looping = looping;
   }
 
   @Implementation
-  public void setVolume(float left, float right) {
+  protected void setVolume(float left, float right) {
     checkStateError("setVolume()", nonErrorStates);
     leftVolume = left;
     rightVolume = right;
   }
 
   @Implementation
-  public boolean isPlaying() {
+  protected boolean isPlaying() {
     checkStateError("isPlaying()", nonErrorStates);
     return state == STARTED;
   }
@@ -820,7 +820,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * @see #invokePreparedListener()
    */
   @Implementation
-  public void prepare() {
+  protected void prepare() {
     checkStateException("prepare()", preparableStates);
     MediaInfo info = getMediaInfo();
     if (info.preparationDelay > 0) {
@@ -840,7 +840,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * @see #invokePreparedListener()
    */
   @Implementation
-  public void prepareAsync() {
+  protected void prepareAsync() {
     checkStateException("prepareAsync()", preparableStates);
     state = PREPARING;
     MediaInfo info = getMediaInfo();
@@ -862,7 +862,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * @see #doStart()
    */
   @Implementation
-  public void start() {
+  protected void start() {
     if (checkStateError("start()", startableStates)) {
       if (state == PLAYBACK_COMPLETED) {
         startOffset = 0;
@@ -964,7 +964,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * @see #doStop()
    */
   @Implementation
-  public void _pause() {
+  protected void _pause() {
     if (checkStateError("pause()", pausableStates)) {
       doStop();
       state = PAUSED;
@@ -978,7 +978,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * suspend playback event callbacks and sets the state to END.
    */
   @Implementation
-  public void _release() {
+  protected void _release() {
     checkStateException("release()", allStates);
     doStop();
     state = END;
@@ -990,7 +990,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * suspend playback event callbacks and sets the state to IDLE.
    */
   @Implementation
-  public void _reset() {
+  protected void _reset() {
     checkStateException("reset()", nonEndStates);
     doStop();
     state = IDLE;
@@ -1006,7 +1006,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * suspend playback event callbacks and sets the state to STOPPED.
    */
   @Implementation
-  public void _stop() {
+  protected void _stop() {
     if (checkStateError("stop()", stoppableStates)) {
       doStop();
       state = STOPPED;
@@ -1018,13 +1018,13 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
       PLAYBACK_COMPLETED);
 
   @Implementation
-  public void attachAuxEffect(int effectId) {
+  protected void attachAuxEffect(int effectId) {
     checkStateError("attachAuxEffect()", attachableStates);
     auxEffect = effectId;
   }
 
   @Implementation
-  public int getAudioSessionId() {
+  protected int getAudioSessionId() {
     checkStateException("getAudioSessionId()", allStates);
     return audioSessionId;
   }
@@ -1038,7 +1038,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * @see #getCurrentPositionRaw()
    */
   @Implementation
-  public int getCurrentPosition() {
+  protected int getCurrentPosition() {
     checkStateError("getCurrentPosition()", attachableStates);
     return getCurrentPositionRaw();
   }
@@ -1051,19 +1051,19 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    * @see addMediaInfo
    */
   @Implementation
-  public int getDuration() {
+  protected int getDuration() {
     checkStateError("getDuration()", stoppableStates);
     return getMediaInfo().duration;
   }
 
   @Implementation
-  public int getVideoHeight() {
+  protected int getVideoHeight() {
     checkStateLog("getVideoHeight()", attachableStates);
     return videoHeight;
   }
 
   @Implementation
-  public int getVideoWidth() {
+  protected int getVideoWidth() {
     checkStateLog("getVideoWidth()", attachableStates);
     return videoWidth;
   }
@@ -1081,7 +1081,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
    *          the offset (in ms) from the start of the track to seek to.
    */
   @Implementation
-  public void seekTo(int seekTo) {
+  protected void seekTo(int seekTo) {
     boolean success = checkStateError("seekTo()", seekableStates);
     // Cancel any pending seek operations.
     handler.removeMessages(MEDIA_EVENT, seekCompleteCallback);
@@ -1102,7 +1102,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
   static private final EnumSet<State> idleState = EnumSet.of(IDLE);
 
   @Implementation
-  public void setAudioSessionId(int sessionId) {
+  protected void setAudioSessionId(int sessionId) {
     checkStateError("setAudioSessionId()", idleState);
     audioSessionId = sessionId;
   }
@@ -1111,7 +1111,7 @@ public class ShadowMediaPlayer extends ShadowPlayerBase {
       INITIALIZED, STOPPED);
 
   @Implementation
-  public void setAudioStreamType(int audioStreamType) {
+  protected void setAudioStreamType(int audioStreamType) {
     checkStateError("setAudioStreamType()", nonPlayingStates);
     this.audioStreamType = audioStreamType;
   }
