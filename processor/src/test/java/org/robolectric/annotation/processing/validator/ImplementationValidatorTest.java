@@ -6,13 +6,31 @@ import static org.robolectric.annotation.processing.validator.SingleClassSubject
 import org.junit.Test;
 
 public class ImplementationValidatorTest {
+
   @Test
   public void implementationWithoutImplements_shouldNotCompile() {
     final String testClass = "org.robolectric.annotation.processing.shadows.ShadowImplementationWithoutImplements";
     assertAbout(singleClass())
-      .that(testClass)
-      .failsToCompile()
-      .withErrorContaining("@Implementation without @Implements")
-      .onLine(7);
+        .that(testClass)
+        .failsToCompile()
+        .withErrorContaining("@Implementation without @Implements")
+        .onLine(7);
+  }
+
+  @Test
+  public void implementationWithIncorrectVisibility_shouldNotCompile() {
+    final String testClass = "org.robolectric.annotation.processing.shadows.ShadowImplementationWithIncorrectVisibility";
+    assertAbout(singleClass())
+        .that(testClass)
+        .failsToCompile()
+        .withErrorContaining("@Implementation methods should be protected")
+        .onLine(10)
+        .and()
+        .withErrorContaining("@Implementation methods should be protected")
+        .onLine(13)
+        .and()
+        .withErrorContaining("@Implementation methods should be protected")
+        .onLine(16)
+    ;
   }
 }

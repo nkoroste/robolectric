@@ -60,7 +60,7 @@ public class ImplementsValidator extends Validator {
       if (methodName.equals("__constructor__") || methodName.equals("__staticInitializer__")) {
         Implementation implementation = memberElement.getAnnotation(Implementation.class);
         if (implementation == null) {
-          messager.printMessage(Kind.ERROR, "Should be annotated @Implementation", memberElement);
+          messager.printMessage(Kind.ERROR, "Shadow methods must be annotated @Implementation", memberElement);
         }
 
         if (!memberElement.getModifiers().contains(Modifier.PROTECTED)) {

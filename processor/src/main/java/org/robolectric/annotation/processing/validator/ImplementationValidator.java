@@ -1,5 +1,7 @@
 package org.robolectric.annotation.processing.validator;
 
+import java.util.Set;
+import javax.lang.model.element.Modifier;
 import org.robolectric.annotation.processing.RobolectricModel;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -16,6 +18,13 @@ public class ImplementationValidator extends FoundOnImplementsValidator {
 
   @Override
   public Void visitExecutable(ExecutableElement elem, TypeElement parent) {
+    Set<Modifier> modifiers = elem.getModifiers();
+    if (modifiers.contains(Modifier.PRIVATE)
+        || modifiers.contains(Modifier.PUBLIC)
+        || !modifiers.contains(Modifier.PROTECTED)) {
+      error("@Implementation methods should be protected");
+    }
+
     // TODO: Check that it has the right signature
     return null;
   }

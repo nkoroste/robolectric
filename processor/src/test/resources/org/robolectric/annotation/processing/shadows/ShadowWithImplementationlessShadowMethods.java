@@ -6,9 +6,9 @@ import com.example.objects.Dummy;
 
 @Implements(Dummy.class)
 public class ShadowWithImplementationlessShadowMethods {
-  public void __constructor__() {
+  protected void __constructor__() {
   }
 
-  public void __staticInitializer__() {
+  protected void __staticInitializer__() {
   }
 }
