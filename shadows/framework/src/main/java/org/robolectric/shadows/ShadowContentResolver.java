@@ -650,7 +650,7 @@ public class ShadowContentResolver {
   }
 
   @Implementation
-  synchronized public void registerContentObserver( Uri uri, boolean notifyForDescendents, ContentObserver observer) {
+  synchronized protected void registerContentObserver( Uri uri, boolean notifyForDescendents, ContentObserver observer) {
     CopyOnWriteArraySet<ContentObserver> observers = contentObservers.get(uri);
     if (observers == null) {
       observers = new CopyOnWriteArraySet<>();

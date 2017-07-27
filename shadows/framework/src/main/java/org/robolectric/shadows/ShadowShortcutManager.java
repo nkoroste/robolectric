@@ -29,7 +29,7 @@ public class ShadowShortcutManager {
   private boolean isRequestPinShortcutSupported = true;
 
   @Implementation
-  public boolean addDynamicShortcuts(List<ShortcutInfo> shortcutInfoList) {
+  protected boolean addDynamicShortcuts(List<ShortcutInfo> shortcutInfoList) {
     for (ShortcutInfo shortcutInfo : shortcutInfoList) {
       if (activePinnedShortcuts.containsKey(shortcutInfo.getId())) {
         ShortcutInfo previousShortcut = activePinnedShortcuts.get(shortcutInfo.getId());
@@ -54,7 +54,7 @@ public class ShadowShortcutManager {
   }
 
   @Implementation(minSdk = Build.VERSION_CODES.O)
-  public Intent createShortcutResultIntent(ShortcutInfo shortcut) {
+  protected Intent createShortcutResultIntent(ShortcutInfo shortcut) {
     if (disabledPinnedShortcuts.containsKey(shortcut.getId())) {
       throw new IllegalArgumentException();
     }
@@ -62,12 +62,12 @@ public class ShadowShortcutManager {
   }
 
   @Implementation
-  public void disableShortcuts(List<String> shortcutIds) {
+  protected void disableShortcuts(List<String> shortcutIds) {
     disableShortcuts(shortcutIds, "Shortcut is disabled.");
   }
 
   @Implementation
-  public void disableShortcuts(List<String> shortcutIds, CharSequence unused) {
+  protected void disableShortcuts(List<String> shortcutIds, CharSequence unused) {
     for (String shortcutId : shortcutIds) {
       ShortcutInfo shortcut = activePinnedShortcuts.remove(shortcutId);
       if (shortcut != null) {

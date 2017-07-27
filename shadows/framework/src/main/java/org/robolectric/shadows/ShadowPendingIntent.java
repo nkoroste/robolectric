@@ -134,12 +134,12 @@ public class ShadowPendingIntent {
   }
 
   @Implementation
-  public String getTargetPackage() {
+  protected String getTargetPackage() {
     return getCreatorPackage();
   }
 
   @Implementation
-  public String getCreatorPackage() {
+  protected String getCreatorPackage() {
     return (creatorPackage == null)
         ? RuntimeEnvironment.application.getPackageName()
         : creatorPackage;
@@ -184,7 +184,7 @@ public class ShadowPendingIntent {
 
   @Override
   @Implementation
-  public int hashCode() {
+  protected int hashCode() {
     int result = savedIntents != null ? Arrays.hashCode(savedIntents) : 0;
     if (savedContext != null) {
       String packageName = savedContext.getPackageName();
